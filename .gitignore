@@ -3,5 +3,3 @@ scholar-error.log
 /sneat-1.0.0/*
 /writable/*
 /public/uploads/*
-/app/Config/App.php
-/app/Config/Database.php
