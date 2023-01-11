@@ -15,7 +15,7 @@ class CommonController extends BaseController
 	public $email;
 	protected $helpers = ['form', 'url', 'html', 'my', 'date', 'filesystem'];
 	public $head = array(
-		"title" => "Welcome to ".APP_NAME." - India",
+		"title" => "Welcome to ".APP_NAME,
 		"description" => "Get details about ".APP_NAME,
 		"image" => "",
 		"site_name" => APP_NAME,
@@ -24,6 +24,15 @@ class CommonController extends BaseController
 		"page_name" =>APP_NAME,
 		"author" =>APP_NAME
 	);
+	
+	public function setTitle($title){
+		$this->head['title'] = $title;
+		return $this;
+	}
+	public function setDescription($description){
+		$this->head['description'] = $description;
+		return $this;
+	}
 	
 	public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
@@ -64,10 +73,11 @@ class CommonController extends BaseController
 				$content = $this->emailView('user-registration', $this->emailData([
 					'user_name' => $userData['fname']. ' ' .$userData['lname'],
 					'app_name' => APP_NAME,
-					'activation_link' => $verificationModel->getLink($user_id, $verificationModel::$verificationTypeMail)
+					'activation_link' => $verificationModel->getLink($userData['id'], $verificationModel::$verificationTypeMail)
 				]));
 				$this->setEmailMessage($content);
 				$this->sentEmail();
+				$user->addActivity($this->request, $userData['id'], "Email confirmation send", "Account", "warning");
 				return true;
 			}else
 				return false;
@@ -79,7 +89,8 @@ class CommonController extends BaseController
 		$user = model(UserModel::class);
 		if($userData = $user->get($user_id)){
 			$password = getRandomPassword();
-			$user->update($user_id, ['password' => md5($password)]);
+			$user->update($userData['id'], ['password' => md5($password)]);
+			$user->addActivity($this->request, $userData['id'], "Account password changed", "Account", "warning");
 			return $password;
 		}else
 			return false;

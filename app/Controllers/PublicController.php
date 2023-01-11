@@ -21,12 +21,12 @@ class PublicController extends CommonController
 
     }
 	
-	public function view($page, $data = array(), $head=array(), $foot=array())
+	public function view($page, $data = array())
     {
-		return view('public/_templates/head', $head)
-			.view('public/_templates/header', $head)
+		return view('public/_templates/head', $this->head)
+			.view('public/_templates/header', $this->head)
 		   .view($page, $data)
-		   .view('public/_templates/footer', $foot);
+		   .view('public/_templates/footer');
 	}
 
 }

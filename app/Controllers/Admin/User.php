@@ -14,8 +14,14 @@ class User extends AdminController
     public function profile($user_id=0)
     {
 		$user = model(UserModel::class);
-		$data = $user->get($user_id ? $user_id : $this->session->get('id'));
-        echo $this->adminView('user/profile', ['data'=>$data], $this->head);
+		$userData = $user->get($user_id ? $user_id : $this->session->get('id'));
+		if($userData){
+			$this->setTitle("{$userData['fname']} {$userData['lname']}'s Profile");
+			echo $this->adminView('user/profile', ['data'=>$userData]);
+		}else{
+			$this->setFlashMessage('No account exist.', 'danger');
+			return $this->response->redirect(site_url("admin/secure/dashboard"));
+		}
     }
 	public function thememode()
     {
@@ -45,13 +51,13 @@ class User extends AdminController
 					$address = $user->getUserAddress($user_id, $data['address_id']);
 					$data = array_merge($data, array_intersect_key($address, array_flip(array('line1', 'line2', 'district', 'state', 'country', 'pincode'))));
 				}
-				$this->head['title'] = "{$data['fname']} {$data['lname']} Information";
+				$this->setTitle("{$data['fname']} {$data['lname']} Information");
 			}
 			$incomesource = $user->getIncomeSourcesList();
 			$identities = $user->getIdentitiesList();
 			$states = $user->getStatesList();
 			$types = $user->getUserTypes($data['type']);
-			echo $this->adminView('user/registration', ['incomesource' => $incomesource, 'states'=>$states, 'identities' => $identities, 'types'=>$types, 'data'=>$data], $this->head);
+			echo $this->adminView('user/registration', ['incomesource' => $incomesource, 'states'=>$states, 'identities' => $identities, 'types'=>$types, 'data'=>$data]);
 
 		}else{
 			$this->setFlashMessage('Permission denined.', 'danger');
@@ -78,8 +84,9 @@ class User extends AdminController
 	public function changeUserPassword($user_id){
 		if($this->session->get('type') == USER_TYPE_ADMIN){
 			if($user_id){
-				if($password = $this->changePassword($user_id))
+				if($password = $this->changePassword($user_id)){
 					$this->setFlashMessage("Password Change successfully. New password is <b>{$password}</b>", 'success');
+				}
 				else
 					$this->setFlashMessage('Unable to change user password.', 'warning');
 			}
@@ -124,7 +131,7 @@ class User extends AdminController
 					'mname' => $this->request->getPost('mname'),
 					'lname' => $this->request->getPost('lname'),
 					'type' => $this->request->getPost('type'),
-					'email' => $this->request->getPost('email'),
+					'email' => trim(strtolower($this->request->getPost('email'))),
 					'mobile' => $this->request->getPost('mobile'),
 					'line1' => $this->request->getPost('line1'),
 					'line2' => $this->request->getPost('line2'),
@@ -140,12 +147,14 @@ class User extends AdminController
 
 				if($user_id == 0){
 					$userData = array_merge($userData, array(
+						'code' => md5(trim(strtolower($this->request->getPost('email')))),
 						'email_verified' => 1,
 						'mobile_verified' => 1,
 						'image' => $user->defaultImage,
 						'password' => $this->request->getPost('password')? $this->request->getPost('password') : md5(getRandomPassword())
 						)
 					);
+					$user->addActivity($this->request, $user_id, "Account created", "Account", "success");
 					$user_id = $user->insert($userData);
 				}
 				else{
@@ -153,6 +162,7 @@ class User extends AdminController
 						$userData['password'] = md5($this->request->getPost('password'));
 					}
 					$user->update($user_id,$userData);
+					$user->addActivity($this->request, $user_id, "Account updated", "Account", "success");
 				}
 				#=============File Upload====================================
 				if ($path = $this->uploadFile('image', 'user')) {
@@ -200,11 +210,15 @@ class User extends AdminController
 	public function activate($user_id=0)
 	{
 		if($this->session->get('type') == USER_TYPE_ADMIN){
-			$user = model(UserModel::class);			
-			if($user_id != 0){
-				$user->update($user_id, ['status'=>$user->active, 'deleted_date'=>NULL]);
+			$user = model(UserModel::class);
+			$userData = $user->get($user_id);			
+			if($userData && $user_id != 0){
+				$user->update($userData['id'], ['status'=>$user->active, 'deleted_date'=>NULL]);
+				$user->addActivity($this->request, $userData['id'], "Account activated", "Account", "success");
+				$this->setFlashMessage('User account activated successfully.', 'success');
+			}else{
+				$this->setFlashMessage('No account found.', 'warning');
 			}
-			$this->setFlashMessage('User account activated successfully.', 'success');
 		}else{
 			$this->setFlashMessage('Permission denined.', 'danger');
 		}
@@ -213,11 +227,15 @@ class User extends AdminController
 	public function unverified($user_id=0)
 	{
 		if($this->session->get('type') == USER_TYPE_ADMIN){
-			$user = model(UserModel::class);			
-			if($user_id != 0){
-				$user->update($user_id, ['status'=>$user->unverified, 'deleted_date'=>NULL]);
+			$user = model(UserModel::class);
+			$userData = $user->get($user_id);
+			if($userData && $user_id != 0){
+				$user->update($userData['id'], ['status'=>$user->unverified, 'deleted_date'=>NULL]);
+				$user->addActivity($this->request, $userData['id'], "Account marked unverified", "Account", "warning");
+				$this->setFlashMessage('User account marked unverified successfully.', 'success');
+			}else{
+				$this->setFlashMessage('No account found.', 'warning');
 			}
-			$this->setFlashMessage('User account marked unverified successfully.', 'success');
 		}else{
 			$this->setFlashMessage('Permission denined.', 'danger');
 		}
@@ -226,9 +244,11 @@ class User extends AdminController
 	public function suspend($user_id=0)
 	{
 		if($this->session->get('type') == USER_TYPE_ADMIN){
-			$user = model(UserModel::class);			
-			if($user_id != 0){
-				$user->update($user_id, ['status'=>$user->suspended, 'deleted_date'=>NULL]);
+			$user = model(UserModel::class);
+			$userData = $user->get($user_id);
+			if($userData && $user_id != 0){
+				$user->update($userData['id'], ['status'=>$user->suspended, 'deleted_date'=>NULL]);
+				$user->addActivity($this->request, $userData['id'], "Account suspended", "Account", "danger");
 			}
 			$this->setFlashMessage('User account suspended successfully.', 'success');	
 		}else{
@@ -241,9 +261,16 @@ class User extends AdminController
     {
 		if($this->session->get('type') == USER_TYPE_ADMIN){
 			$user = model(UserModel::class);
-			$user->update($id, ['status'=>'Deleted']);
-			$user->delete($id);
-			$this->setFlashMessage('User deleted successfull.', 'success');
+			$userData = $user->get($id);
+			if($userData){
+				$user->update($userData['id'], ['status'=>'Deleted']);
+				$user->delete($userData['id']);
+				$user->addActivity($this->request, $userData['id'], "Account deleted", "Account", "danger");
+				$this->setFlashMessage('User deleted successfull.', 'success');
+			}
+			else{
+				$this->setFlashMessage('No account found.', 'warning');
+			}
 		}else{
 			$this->setFlashMessage('Permission denined.', 'danger');
 		}
@@ -254,21 +281,21 @@ class User extends AdminController
     {
 		$user = model(UserModel::class);
 		$userlist = $user->getList(USER_TYPE_ADMIN);
-		$this->head['title'] = "Admin List Accounts";
-		echo $this->adminView('user/userlist', ['userlist' =>$userlist, 'status'=>self::$status, 'listName'=>'Admin'], $this->head);
+		$this->setTitle('Admin List Accounts');
+		echo $this->adminView('user/userlist', ['userlist' =>$userlist, 'status'=>self::$status, 'listName'=>'Admin']);
     }
 	public function donner()
     {
 		$user = model(UserModel::class);
 		$userlist = $user->getList(USER_TYPE_DONNER);
-		$this->head['title'] = "Donner List Accounts";
-		echo $this->adminView('user/userlist', ['userlist' =>$userlist, 'status'=>self::$status, 'listName'=>'Donner'], $this->head);
+		$this->setTitle("Donner List Accounts");
+		echo $this->adminView('user/userlist', ['userlist' =>$userlist, 'status'=>self::$status, 'listName'=>'Donner']);
     }
 	public function student()
     {
 		$user = model(UserModel::class);
 		$userlist = $user->getList(USER_TYPE_STUDENT);
-		$this->head['title'] = "Student List Accounts";
-		echo $this->adminView('user/userlist', ['userlist' =>$userlist, 'status'=>self::$status, 'listName'=>'Student'], $this->head);
+		$this->setTitle("Student List Accounts");
+		echo $this->adminView('user/userlist', ['userlist' =>$userlist, 'status'=>self::$status, 'listName'=>'Student']);
     }
 }

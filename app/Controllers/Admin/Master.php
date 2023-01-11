@@ -75,8 +75,8 @@ class Master extends AdminController
     {
 		$scholar = model(ScholarModel::class);
 		$scholarlist = $scholar->getList();
-		$this->head['title'] = "Scholar List Accounts";
-		echo $this->adminView('scholar/scholarlist', ['scholarlist' =>$scholarlist], $this->head);
+		$this->setTitle("Scholar List Accounts");
+		echo $this->adminView('scholar/scholarlist', ['scholarlist' =>$scholarlist]);
     }
 	
 }

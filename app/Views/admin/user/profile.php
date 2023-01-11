@@ -43,9 +43,14 @@
   <div class="col-md-12">
     <ul class="nav nav-pills flex-column flex-sm-row mb-4">
       <li class="nav-item"><a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user"></i> Profile</a></li>
-      <li class="nav-item"><a class="nav-link" href="pages-profile-teams.html"><i class="bx bx-group"></i> Teams</a></li>
-      <li class="nav-item"><a class="nav-link" href="pages-profile-projects.html"><i class="bx bx-grid-alt"></i> Projects</a></li>
-      <li class="nav-item"><a class="nav-link" href="pages-profile-connections.html"><i class="bx bx-link-alt"></i> Connections</a></li>
+	  <?php if($data['type'] == USER_TYPE_CUSTOMER){ ?>
+      <li class="nav-item"><a class="nav-link" href="<?php echo base_url("admin/secure/user/advance-info/{$data['id']}")?>"><i class="bx bx-user-circle"></i> Advance Info</a></li>
+	  <li class="nav-item"><a class="nav-link" href="<?php echo base_url("admin/secure/user/metrics/{$data['id']}")?>"><i class="bx bx-book-reader"></i> Metrics</a></li>
+	  <?php }?>
+	  <?php if($data['type'] == USER_TYPE_DONNER){ ?>
+      <li class="nav-item"><a class="nav-link" href="<?php echo base_url("admin/secure/user/documents/{$data['id']}")?>"><i class="bx bx-file-doc"></i> Documents</a></li>
+	  <?php }?>
+      <li class="nav-item"><a class="nav-link" href="<?php echo base_url("admin/secure/user/activity/{$data['id']}")?>"><i class="bx bx-analyse"></i> Activity</a></li>
     </ul>
   </div>
 </div>

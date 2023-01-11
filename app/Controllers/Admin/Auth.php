@@ -9,15 +9,15 @@ class Auth extends AdminController
 	
 	public function signin()
     {
-        $this->head['title'] = "Sign in to your account";
+        $this->setTitle('Sign in');
 		$data = array();
-        echo $this->authView('admin/auth/signin', $data, $this->head);
+        echo $this->authView('admin/auth/signin', $data);
     }
 	public function signup()
     {
-		$this->head['title'] = "Create your account"; 
+		$this->setTitle('Sign up');
         $data = array();
-        echo $this->authView('admin/auth/signup', $data, $this->head);
+        echo $this->authView('admin/auth/signup', $data);
     }
 	public function resetpassword()
     {
@@ -86,7 +86,7 @@ public function signincheck()
 						$this->session->set('hash', md5(json_encode($userRecord)));
 						$this->setFlashMessage('Signin successfull.', 'success');
 						$this->session->set('log-login', $user->logLogin($this->request, $userRecord['id']));
-						$user->addActivity($this->request, $userRecord['id'], "Signin successfull", "Account", "Primary");
+						$user->addActivity($this->request, $userRecord['id'], "Signin successfull", "Account", "primary");
 						return $this->response->redirect(site_url('admin/secure/dashboard'));
 					}else{
 						$this->setFlashMessage('Email is not verified yet. Please check email or Click to <a href="'.base_url('auth/resetpassword').'">Reset Password</a>', 'warning');
@@ -126,7 +126,8 @@ public function signincheck()
 					'fname' => $this->request->getPost('fname'),
 					'lname' => $this->request->getPost('lname'),
 					'type' => $this->request->getPost('type'),
-					'email' => $this->request->getPost('email'),
+					'code' => md5(trim(strtolower($this->request->getPost('email'))))
+					'email' => trim(strtolower($this->request->getPost('email'))),
 					'mobile' => $this->request->getPost('mobile'),
 					'password' => md5($this->request->getPost('password')),
 					'email_verified' => 0,

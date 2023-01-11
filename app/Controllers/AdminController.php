@@ -21,14 +21,14 @@ class AdminController extends CommonController
     }
 
 	
-    public function authView($page, $data = array(), $head=array(), $foot=array())
+    public function authView($page, $data = array())
     {
-       return view('admin/_templates/header', $head).view($page, $data).view('admin/_templates/footer', $foot);
+       return view('admin/_templates/header', $this->head).view($page, $data).view('admin/_templates/footer');
     }
 
-	public function adminView($page, $data = array(), $head=array(), $foot=array())
+	public function adminView($page, $data = array())
     {
-		   return view('admin/_templates/header', $head)
+		   return view('admin/_templates/header', $this->head)
 		   .view('admin/_templates/admin-layout-wrapper-open', $data)
 		   .view('admin/_templates/admin-aside', $data)
 		   .view('admin/_templates/admin-navbar', $data)
@@ -36,6 +36,6 @@ class AdminController extends CommonController
 		   .view('admin/'.$page, $data)
 		   .view('admin/_templates/admin-content-wrapper-close', $data)
 		   .view('admin/_templates/admin-layout-wrapper-close', $data)
-		   .view('admin/_templates/footer', $foot);
+		   .view('admin/_templates/footer');
     }
 }

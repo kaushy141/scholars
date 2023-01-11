@@ -34,6 +34,7 @@ class UserModel extends MyModel {
 		$builder->select("{$this->table}.*, user_types.type_name");
 		$builder->join("user_types", "user_types.type_id = {$this->table}.type");
 		$builder->where("{$this->table}.id", $user_id);
+		$builder->orWhere("{$this->table}.code", $user_id);
 		$query = $builder->get();
 		return $query->getFirstRow('array');
 	}
@@ -55,14 +56,15 @@ class UserModel extends MyModel {
 	public function addActivity($request, $user_id, $content, $title=null, $variant='default', $link=null)
 	{
 		$builder = $this->db->table("activity");
-		$builder->insert(["user_id" => $user_id, "title" => $title, "content" => $content, "variant" => $variant, "link" => $link, "ip_address" => $_SERVER['REMOTE_ADDR'], "device" => $this->getDevice($request) ]);
+		$created_by = session()->get('id')? session()->get('id') : 0;
+		$builder->insert(["user_id" => $user_id, "title" => $title, "content" => $content, "variant" => $variant, "link" => $link, "ip_address" => $_SERVER['REMOTE_ADDR'], "device" => $this->getDevice($request), 'created_by' => $created_by]);
 		///echo $this->db->getLastQuery();die;
 	}
 
 	public function getList($type=0)
 	{
 		$builder = $this->db->table($this->table);
-		$builder->select("{$this->table}.id, {$this->table}.fname, {$this->table}.mname, {$this->table}.lname, {$this->table}.email, {$this->table}.image, {$this->table}.mobile, {$this->table}.created_date, {$this->table}.status, {$this->table}.email_verified, user_types.type_name");
+		$builder->select("{$this->table}.id, {$this->table}.code, {$this->table}.fname, {$this->table}.mname, {$this->table}.lname, {$this->table}.email, {$this->table}.image, {$this->table}.mobile, {$this->table}.created_date, {$this->table}.status, {$this->table}.email_verified, user_types.type_name");
 		$builder->join("user_types", "user_types.type_id = {$this->table}.type");
 		if($type)
 		$builder->where("{$this->table}.type", $type);

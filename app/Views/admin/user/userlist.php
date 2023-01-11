@@ -26,8 +26,8 @@
 			foreach($userlist as $user){
 		?>
 		  <tr>
-			<td><i class="fab fa-angular fa-lg text-danger me-3"></i><strong><?= img(array("src"=>base_url().'/'.$user['image'], "class"=>"w-px-40 h-auto rounded-circle"))?></strong></td>
-			<td><?php echo $user['fname']?> <?php echo $user['lname']?></td>
+			<td><a href="<?php echo base_url("admin/secure/user/profile/{$user['code']}")?>"><i class="fab fa-angular fa-lg text-danger me-3"></i><?= img(array("src"=>base_url().'/'.$user['image'], "class"=>"w-px-40 h-auto rounded-circle"))?></a></td>
+			<td><a href="<?php echo base_url("admin/secure/user/profile/{$user['code']}")?>"><?php echo $user['fname']?> <?php echo $user['lname']?></a></td>
 			<td><span class="badge bg-label-<?php echo $user['email_verified']? "success":"warning"?> me-1"><?php echo $user['email']?></span></td>
 			<td><span class=""><?php echo $user['type_name']?></span></td>
 			<td><span class=""><?php echo dateView($user['created_date'])?></span></td>
@@ -35,17 +35,17 @@
 			<td>
 			<div class="d-inline-block text-nowrap">
 				<a href="<?php echo base_url("admin/secure/user/registration/{$user['id']}")?>" class="btn btn-sm btn-icon"><i class="bx bx-edit"></i></a>
-				<a href="<?php echo base_url("admin/secure/user/delete/{$user['id']}")?>" class="delete-record btn btn-sm btn-icon delete-record"><i class="bx bx-trash"></i></a>
+				<a href="<?php echo base_url("admin/secure/user/delete/{$user['code']}")?>" class="delete-record btn btn-sm btn-icon delete-record"><i class="bx bx-trash"></i></a>
 				<button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
 				<div class="dropdown-menu dropdown-menu-end m-0">
-					<a href="<?php echo base_url("admin/secure/user/profile/{$user['id']}")?>" class="dropdown-item"><i class="bx bx-user"></i> View Profile</a>
+					<a href="<?php echo base_url("admin/secure/user/profile/{$user['code']}")?>" class="dropdown-item"><i class="bx bx-user"></i> View Profile</a>
 					<a href="<?php echo base_url("admin/secure/user/registration/{$user['id']}")?>" class="dropdown-item"><i class="bx bx-edit"></i> Update</a>
-					<a href="<?php echo base_url("admin/secure/user/send-email-conf-link/{$user['id']}")?>" class="dropdown-item"><i class="bx bx-mail-send"></i> Send Conf. Link</a>
-					<a href="<?php echo base_url("admin/secure/user/change-password/{$user['id']}")?>" class="dropdown-item"><i class="bx bx-shield-quarter"></i> Change Password</a>
+					<a href="<?php echo base_url("admin/secure/user/send-email-conf-link/{$user['code']}")?>" class="dropdown-item"><i class="bx bx-mail-send"></i> Send Conf. Link</a>
+					<a href="<?php echo base_url("admin/secure/user/change-password/{$user['code']}")?>" class="dropdown-item"><i class="bx bx-shield-quarter"></i> Change Password</a>
 					<?php foreach($status as $_status){
 						if($user['status'] != $_status['value']){
 						?>
-						<a href="<?php echo base_url("admin/secure/user/".strtolower($_status['key'])."/{$user['id']}")?>" class="dropdown-item text-<?php echo $_status['class'];?>"><i class="bx bx-<?php echo $_status['icon'];?>"></i> <?php echo $_status['label'];?></a>
+						<a href="<?php echo base_url("admin/secure/user/".strtolower($_status['key'])."/{$user['code']}")?>" class="dropdown-item text-<?php echo $_status['class'];?>"><i class="bx bx-<?php echo $_status['icon'];?>"></i> <?php echo $_status['label'];?></a>
 						<?php
 						}
 					}?>
