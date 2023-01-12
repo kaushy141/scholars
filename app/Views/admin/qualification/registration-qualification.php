@@ -1,12 +1,12 @@
 <?php //print_r($data);
 ?>
 <div class="card mb-4">
-  <h5 class="card-header">Scholar Master Form</h5>
-  <?php echo form_open_multipart('admin/secure/master/savescholar/' . intval($data['scholar_id']), ['class' => 'card-body']); ?>
+  <h5 class="card-header">Qualification Form</h5>
+  <?php echo form_open_multipart('admin/secure/master/savequalification/' . intval($data['id']), ['class' => 'card-body']); ?>
   <div class="row g-3">    
 	<div class="col-md-12">
       <label class="form-label" for="mname">Name</label>
-      <input type="text" name="scholar_name" id="scholar_name" maxlength="250" class="form-control" placeholder="Full Scholarship Name" value="<?= $data['scholar_name'] ?>">
+      <input type="text" name="name" id="name" maxlength="250" class="form-control" placeholder="Full Scholarship Name" value="<?= $data['name'] ?>">
     </div>   
 	
 	
@@ -14,12 +14,12 @@
     <label class="form-label">Status</label>
 	<div class="input-group">
 	<div class="form-check form-check-inline mt-2">
-		<input name="scholar_status" class="form-check-input" type="radio" value="1" id="scholar_status_1" <?= $data['scholar_status'] == "1" ? "checked":"" ?>>
-		<label class="form-check-label" for="scholar_status_1"> Active </label>
+		<input name="status" class="form-check-input" type="radio" value="1" id="status_1" <?= $data['status'] == "1" ? "checked":"" ?>>
+		<label class="form-check-label" for="status_1"> Active </label>
 	  </div>
 	  <div class="form-check form-check-inline mt-2">
-		<input name="scholar_status" class="form-check-input" type="radio" value="0" id="scholar_status_0" <?= $data['scholar_status'] == "0" ? "checked":"" ?>>
-		<label class="form-check-label" for="scholar_status_0"> Deactive </label>
+		<input name="status" class="form-check-input" type="radio" value="0" id="status_0" <?= $data['status'] == "0" ? "checked":"" ?>>
+		<label class="form-check-label" for="status_0"> Deactive </label>
 	  </div>
 	  </div>
 	</div>

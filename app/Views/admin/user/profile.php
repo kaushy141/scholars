@@ -43,11 +43,11 @@
   <div class="col-md-12">
     <ul class="nav nav-pills flex-column flex-sm-row mb-4">
       <li class="nav-item"><a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user"></i> Profile</a></li>
-	  <?php if($data['type'] == USER_TYPE_CUSTOMER){ ?>
+	  <?php if($data['type'] == USER_TYPE_CUSTOMER || $data['type'] == USER_TYPE_ADMIN){ ?>
       <li class="nav-item"><a class="nav-link" href="<?php echo base_url("admin/secure/user/advance-info/{$data['id']}")?>"><i class="bx bx-user-circle"></i> Advance Info</a></li>
 	  <li class="nav-item"><a class="nav-link" href="<?php echo base_url("admin/secure/user/metrics/{$data['id']}")?>"><i class="bx bx-book-reader"></i> Metrics</a></li>
 	  <?php }?>
-	  <?php if($data['type'] == USER_TYPE_DONNER){ ?>
+	  <?php if($data['type'] == USER_TYPE_DONNER || $data['type'] == USER_TYPE_ADMIN){ ?>
       <li class="nav-item"><a class="nav-link" href="<?php echo base_url("admin/secure/user/documents/{$data['id']}")?>"><i class="bx bx-file-doc"></i> Documents</a></li>
 	  <?php }?>
       <li class="nav-item"><a class="nav-link" href="<?php echo base_url("admin/secure/user/activity/{$data['id']}")?>"><i class="bx bx-analyse"></i> Activity</a></li>

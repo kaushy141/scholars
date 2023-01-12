@@ -76,7 +76,23 @@ $routes->group('admin', static function($routes){
 		$routes->get('master/registration-scholar', 'Admin\Master::registrationScholar');
 		$routes->get('master/registration-scholar/(:any)', 'Admin\Master::registrationScholar/$1');
 		$routes->post('master/savescholar/(:any)', 'Admin\Master::saveScholar/$1');
+		
+		$routes->get('master/registration-identity', 'Admin\Master::registrationIdentity');
+		$routes->get('master/registration-identity/(:any)', 'Admin\Master::registrationIdentity/$1');
+		$routes->post('master/saveidentity/(:any)', 'Admin\Master::saveIdentity/$1');
+		
+		$routes->get('master/registration-qualification', 'Admin\Master::registrationQualification');
+		$routes->get('master/registration-qualification/(:any)', 'Admin\Master::registrationQualification/$1');
+		$routes->post('master/savequalification/(:any)', 'Admin\Master::saveQualification/$1');
+		
+		$routes->get('master/registration-metrics', 'Admin\Master::registrationMetrics');
+		$routes->get('master/registration-metrics/(:any)', 'Admin\Master::registrationMetrics/$1');
+		$routes->post('master/savemetrics/(:any)', 'Admin\Master::saveMetrics/$1');
+		
 		$routes->get('master/scholar', 'Admin\Master::scholarList');
+		$routes->get('master/identities', 'Admin\Master::identitiesList');
+		$routes->get('master/qualification', 'Admin\Master::qualificationsList');
+		$routes->get('master/metrics', 'Admin\Master::metricsList');
 		
 		$routes->post('store/save/(:id)', 'Admin\Store::save');
 	});

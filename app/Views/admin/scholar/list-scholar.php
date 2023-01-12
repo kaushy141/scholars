@@ -21,16 +21,16 @@
 		<tbody class="table-border-bottom-0">
 		<?php
 		if(!empty($scholarlist)){
-			foreach($scholarlist as $scholar){
+			foreach($scholarlist as $item){
 		?>
 		  <tr>
-			<td><i class="fab fa-angular fa-lg text-danger me-3"></i><strong><?= img(array("src"=>base_url().'/'.$scholar['scholar_image'], "class"=>"w-px-40 h-auto rounded-circle"))?></strong></td>
-			<td><?php echo $scholar['fname']?> <?php echo $scholar['scholar_name']?></td>
-			<td><span class=""><?php echo dateView($scholar['scholar_created_date'])?></span></td>
-			<th><span class="badge bg-label-<?php echo booleanClass($scholar['scholar_status'])?> me-1"><?php echo booleanLabel($scholar['scholar_status'])?></span></th>
+			<td><i class="fab fa-angular fa-lg text-danger me-3"></i><strong><?= img(array("src"=>base_url().'/'.$item['image'], "class"=>"w-px-40 h-auto rounded-circle"))?></strong></td>
+			<td><?php echo $item['name']?></td>
+			<td><span class=""><?php echo dateView($item['created_date'])?></span></td>
+			<th><span class="badge bg-label-<?php echo booleanClass($item['status'])?> me-1"><?php echo booleanLabel($item['status'])?></span></th>
 			<td>
 			<div class="d-inline-block text-nowrap">
-				<a href="<?php echo base_url("admin/secure/master/registration-scholar/{$scholar['scholar_id']}")?>" class="btn btn-sm btn-icon"><i class="bx bx-edit"></i></a>
+				<a href="<?php echo base_url("admin/secure/master/registration-scholar/{$item['id']}")?>" class="btn btn-sm btn-icon"><i class="bx bx-edit"></i></a>
 			</div>
 			</td>
 		  </tr>

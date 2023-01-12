@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 10, 2023 at 02:19 PM
+-- Generation Time: Jan 12, 2023 at 02:26 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.28
 
@@ -50,41 +50,49 @@ CREATE TABLE `activity` (
   `link` varchar(50) DEFAULT NULL,
   `created_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `ip_address` varchar(15) DEFAULT NULL,
-  `device` varchar(250) DEFAULT NULL
+  `device` varchar(250) DEFAULT NULL,
+  `created_by` int(10) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `activity`
 --
 
-INSERT INTO `activity` (`id`, `user_id`, `title`, `content`, `variant`, `link`, `created_date`, `ip_address`, `device`) VALUES
-(1, 1, 'Account', 'Signin successfull', 'Primary', NULL, '0000-00-00 00:00:00', '127.0.0.1', 'Windows 10|Firefox 108.0'),
-(2, 1, 'Account', 'Signin successfull', 'Primary', NULL, '0000-00-00 00:00:00', '127.0.0.1', 'Windows 10|Firefox 108.0'),
-(3, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2022-12-24 19:49:16', '127.0.0.1', 'Windows 10|Firefox 108.0'),
-(4, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2022-12-24 19:54:33', '127.0.0.1', 'Windows 10|Firefox 108.0'),
-(5, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2022-12-24 19:57:07', '127.0.0.1', 'Windows 10|Firefox 108.0'),
-(6, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2022-12-27 08:45:39', '127.0.0.1', 'Windows 10|Firefox 108.0'),
-(7, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2022-12-27 09:16:21', '127.0.0.1', 'Windows 10|Firefox 108.0'),
-(8, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-02 10:30:14', '127.0.0.1', 'Windows 10|Firefox 108.0'),
-(9, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-02 11:08:24', '127.0.0.1', 'Windows 10|Firefox 108.0'),
-(10, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-02 11:09:22', '127.0.0.1', 'Windows 10|Firefox 108.0'),
-(11, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-02 11:36:37', '127.0.0.1', 'Windows 10|Firefox 108.0'),
-(12, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-02 11:38:48', '127.0.0.1', 'Windows 10|Firefox 108.0'),
-(13, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-03 06:46:39', '127.0.0.1', 'Windows 10|Firefox 108.0'),
-(14, 4, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-03 09:33:38', '127.0.0.1', 'Windows 10|Firefox 108.0'),
-(15, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-03 13:04:25', '127.0.0.1', 'Windows 10|Firefox 108.0'),
-(16, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-03 13:36:23', '127.0.0.1', 'Windows 10|Firefox 108.0'),
-(17, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-04 10:49:42', '127.0.0.1', 'Windows 10|Firefox 108.0'),
-(18, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-05 07:54:43', '127.0.0.1', 'Windows 10|Firefox 108.0'),
-(19, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-05 12:58:14', '127.0.0.1', 'Windows 10|Firefox 108.0'),
-(20, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-06 08:49:33', '127.0.0.1', 'Windows 10|Firefox 108.0'),
-(21, 4, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-09 07:11:39', '127.0.0.1', 'Windows 10|Firefox 108.0'),
-(22, 2, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-09 07:20:35', '127.0.0.1', 'Windows 10|Firefox 108.0'),
-(23, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-09 07:23:39', '127.0.0.1', 'Windows 10|Firefox 108.0'),
-(24, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-09 08:25:31', '127.0.0.1', 'Windows 10|Firefox 108.0'),
-(25, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-09 08:26:25', '127.0.0.1', 'Windows 10|Firefox 108.0'),
-(26, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-09 08:27:12', '127.0.0.1', 'Windows 10|Firefox 108.0'),
-(27, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-10 13:07:07', '127.0.0.1', 'Windows 10|Firefox 108.0');
+INSERT INTO `activity` (`id`, `user_id`, `title`, `content`, `variant`, `link`, `created_date`, `ip_address`, `device`, `created_by`) VALUES
+(1, 1, 'Account', 'Signin successfull', 'Primary', NULL, '0000-00-00 00:00:00', '127.0.0.1', 'Windows 10|Firefox 108.0', 0),
+(2, 1, 'Account', 'Signin successfull', 'Primary', NULL, '0000-00-00 00:00:00', '127.0.0.1', 'Windows 10|Firefox 108.0', 0),
+(3, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2022-12-24 19:49:16', '127.0.0.1', 'Windows 10|Firefox 108.0', 0),
+(4, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2022-12-24 19:54:33', '127.0.0.1', 'Windows 10|Firefox 108.0', 0),
+(5, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2022-12-24 19:57:07', '127.0.0.1', 'Windows 10|Firefox 108.0', 0),
+(6, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2022-12-27 08:45:39', '127.0.0.1', 'Windows 10|Firefox 108.0', 0),
+(7, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2022-12-27 09:16:21', '127.0.0.1', 'Windows 10|Firefox 108.0', 0),
+(8, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-02 10:30:14', '127.0.0.1', 'Windows 10|Firefox 108.0', 0),
+(9, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-02 11:08:24', '127.0.0.1', 'Windows 10|Firefox 108.0', 0),
+(10, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-02 11:09:22', '127.0.0.1', 'Windows 10|Firefox 108.0', 0),
+(11, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-02 11:36:37', '127.0.0.1', 'Windows 10|Firefox 108.0', 0),
+(12, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-02 11:38:48', '127.0.0.1', 'Windows 10|Firefox 108.0', 0),
+(13, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-03 06:46:39', '127.0.0.1', 'Windows 10|Firefox 108.0', 0),
+(14, 4, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-03 09:33:38', '127.0.0.1', 'Windows 10|Firefox 108.0', 0),
+(15, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-03 13:04:25', '127.0.0.1', 'Windows 10|Firefox 108.0', 0),
+(16, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-03 13:36:23', '127.0.0.1', 'Windows 10|Firefox 108.0', 0),
+(17, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-04 10:49:42', '127.0.0.1', 'Windows 10|Firefox 108.0', 0),
+(18, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-05 07:54:43', '127.0.0.1', 'Windows 10|Firefox 108.0', 0),
+(19, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-05 12:58:14', '127.0.0.1', 'Windows 10|Firefox 108.0', 0),
+(20, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-06 08:49:33', '127.0.0.1', 'Windows 10|Firefox 108.0', 0),
+(21, 4, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-09 07:11:39', '127.0.0.1', 'Windows 10|Firefox 108.0', 0),
+(22, 2, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-09 07:20:35', '127.0.0.1', 'Windows 10|Firefox 108.0', 0),
+(23, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-09 07:23:39', '127.0.0.1', 'Windows 10|Firefox 108.0', 0),
+(24, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-09 08:25:31', '127.0.0.1', 'Windows 10|Firefox 108.0', 0),
+(25, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-09 08:26:25', '127.0.0.1', 'Windows 10|Firefox 108.0', 0),
+(26, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-09 08:27:12', '127.0.0.1', 'Windows 10|Firefox 108.0', 0),
+(27, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-10 13:07:07', '127.0.0.1', 'Windows 10|Firefox 108.0', 0),
+(28, 2, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-10 13:22:40', '127.0.0.1', 'Windows 10|Firefox 108.0', 0),
+(29, 1, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-10 13:23:12', '127.0.0.1', 'Windows 10|Firefox 108.0', 0),
+(30, 4, 'Account', 'Signin successfull', 'Primary', NULL, '2023-01-11 05:42:45', '127.0.0.1', 'Windows 10|Firefox 108.0', 0),
+(31, 5, 'Account', 'Account password changed', 'warning', NULL, '2023-01-11 06:47:13', '127.0.0.1', 'Windows 10|Firefox 108.0', 4),
+(32, 6, 'Account', 'Account activated', 'success', NULL, '2023-01-11 06:47:27', '127.0.0.1', 'Windows 10|Firefox 108.0', 4),
+(33, 2, 'Account', 'Signin successfull', 'primary', NULL, '2023-01-12 09:30:07', '127.0.0.1', 'Windows 10|Firefox 108.0', 2),
+(34, 1, 'Account', 'Signin successfull', 'primary', NULL, '2023-01-12 09:31:51', '127.0.0.1', 'Windows 10|Firefox 108.0', 1);
 
 -- --------------------------------------------------------
 
@@ -173,6 +181,9 @@ CREATE TABLE `donner_profile` (
 CREATE TABLE `identities` (
   `id` int(10) NOT NULL,
   `name` varchar(50) DEFAULT NULL,
+  `image` varchar(100) NOT NULL,
+  `created_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `created_by` int(10) NOT NULL DEFAULT 0,
   `status` int(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -180,12 +191,16 @@ CREATE TABLE `identities` (
 -- Dumping data for table `identities`
 --
 
-INSERT INTO `identities` (`id`, `name`, `status`) VALUES
-(1, 'Adhar Number', 1),
-(2, 'Driving Licence', 1),
-(3, 'Pan Number', 1),
-(4, 'Rashan Card Number', 1),
-(5, 'Votter Card', 1);
+INSERT INTO `identities` (`id`, `name`, `image`, `created_date`, `created_by`, `status`) VALUES
+(1, 'Adhar Number', 'public/uploads/identities/c/4/1673526043_b946d446489e47b2b79a.png', '2023-01-12 17:30:05', 0, 1),
+(2, 'Driving Licence', 'public/uploads/identity/k/h/1673529450_068c504084336277c063.png', '2023-01-12 17:30:05', 0, 1),
+(3, 'Pan Number', 'public/uploads/identity/2/p/1673527240_efe5eb8681bcb5e9c5b3.png', '2023-01-12 17:30:05', 0, 1),
+(4, 'Rashan Card Number', 'public/uploads/identity/2/k/1673529325_d717827cdf054313e74d.png', '2023-01-12 17:30:05', 0, 1),
+(5, 'Votter Card', 'public/uploads/identity/d/0/1673529311_0e1fd2dd15a4cf622020.png', '2023-01-12 17:30:05', 0, 1),
+(6, 'Passport', 'public/uploads/identities/t/f/1673525903_51aca95c5099b37f7ef5.png', '0000-00-00 00:00:00', 1, 1),
+(7, 'Birth Certificate', 'public/uploads/identity/o/x/1673529299_647c47820034bb96234f.png', '2023-01-12 17:50:43', 1, 1),
+(8, 'National Identity Certificate', 'public/uploads/identity/p/f/1673529288_d83c488f0b2a5de9faa0.png', '2023-01-12 17:55:25', 1, 1),
+(9, 'Local Munciple Authority', 'public/uploads/identity/p/7/1673527220_23512f8f8a3b54d01521.png', '2023-01-12 18:10:20', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -265,7 +280,12 @@ INSERT INTO `log_login` (`id`, `user_id`, `login_time`, `logout_time`, `device`,
 (31, 1, '2023-01-09 13:55:31', '2023-01-09 02:26:07', 'Windows 10|Firefox 108.0', '127.0.0.1', '28au5m2g7a1p0pag1kd46tpgr5da8nvf'),
 (32, 1, '2023-01-09 13:56:25', '2023-01-09 02:26:43', 'Windows 10|Firefox 108.0', '127.0.0.1', 'b3ph4jg3iger51s72pbib20eoguee3ss'),
 (33, 1, '2023-01-09 13:57:12', NULL, 'Windows 10|Firefox 108.0', '127.0.0.1', 'q4f6rjnmtvlojnjbc22o5s19unvoftl0'),
-(34, 1, '2023-01-10 18:37:07', '2023-01-10 07:07:21', 'Windows 10|Firefox 108.0', '127.0.0.1', 'dt872j3up8r57uu08fsokat70cs8kqkt');
+(34, 1, '2023-01-10 18:37:07', '2023-01-10 07:07:21', 'Windows 10|Firefox 108.0', '127.0.0.1', 'dt872j3up8r57uu08fsokat70cs8kqkt'),
+(35, 2, '2023-01-10 18:52:40', '2023-01-10 07:22:46', 'Windows 10|Firefox 108.0', '127.0.0.1', '022vio8aop0p5j3c6jpt83hmkbr0sld6'),
+(36, 1, '2023-01-10 18:53:12', NULL, 'Windows 10|Firefox 108.0', '127.0.0.1', 'hq9ob5vhjjba0ddc8odfl9a8akoag9p1'),
+(37, 4, '2023-01-11 11:12:44', NULL, 'Windows 10|Firefox 108.0', '127.0.0.1', 'iqcj3ngnhf6r3br7agr06jtkc9h0nv21'),
+(38, 2, '2023-01-12 15:00:07', '2023-01-12 03:30:41', 'Windows 10|Firefox 108.0', '127.0.0.1', 'e60kdb2s16ssakd1ilmjlc5fo4rkiqdt'),
+(39, 1, '2023-01-12 15:01:51', NULL, 'Windows 10|Firefox 108.0', '127.0.0.1', 'jv0liv7uc0k6h9tdn2bct5t4ll349c9u');
 
 -- --------------------------------------------------------
 
@@ -274,11 +294,21 @@ INSERT INTO `log_login` (`id`, `user_id`, `login_time`, `logout_time`, `device`,
 --
 
 CREATE TABLE `metrics` (
-  `metrics_id` int(10) NOT NULL,
-  `metrics_name` varchar(250) DEFAULT NULL,
-  `metrics_details` varchar(1000) DEFAULT NULL,
-  `metrics_status` int(1) NOT NULL DEFAULT 1
+  `id` int(10) NOT NULL,
+  `name` varchar(250) DEFAULT NULL,
+  `details` varchar(1000) DEFAULT NULL,
+  `created_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `image` varchar(100) DEFAULT NULL,
+  `created_by` int(10) NOT NULL DEFAULT 0,
+  `status` int(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `metrics`
+--
+
+INSERT INTO `metrics` (`id`, `name`, `details`, `created_date`, `image`, `created_by`, `status`) VALUES
+(1, '8th Marksheet', NULL, '2023-01-12 18:56:03', 'public/uploads/metrics/w/9/1673529963_5ffc7f2b1473c37af0b2.png', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -301,26 +331,63 @@ CREATE TABLE `qrcodes` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `qualification`
+--
+
+CREATE TABLE `qualification` (
+  `id` int(11) NOT NULL,
+  `name` varchar(250) DEFAULT NULL,
+  `image` varchar(100) DEFAULT NULL,
+  `created_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `created_by` int(10) NOT NULL DEFAULT 0,
+  `status` int(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `qualification`
+--
+
+INSERT INTO `qualification` (`id`, `name`, `image`, `created_date`, `created_by`, `status`) VALUES
+(1, '8th Standared', 'public/uploads/qualification/a/6/1673529516_4959dcc2837c85669a83.png', '2023-01-12 18:48:36', 0, 1),
+(2, '10th Standared', 'public/uploads/qualification/v/7/1673529923_5c0ae66db1fe74ff0258.png', '2023-01-12 18:55:23', 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `qualification_metrics`
+--
+
+CREATE TABLE `qualification_metrics` (
+  `metric_id` int(10) NOT NULL DEFAULT 0,
+  `qualification_id` int(10) NOT NULL DEFAULT 0,
+  `status` int(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `scholar`
 --
 
 CREATE TABLE `scholar` (
-  `scholar_id` int(10) NOT NULL,
-  `scholar_name` varchar(250) NOT NULL,
-  `scholar_image` varchar(100) DEFAULT NULL,
-  `scholar_created_date` datetime NOT NULL DEFAULT current_timestamp(),
-  `scholar_created_by` int(10) NOT NULL DEFAULT 0,
-  `scholar_status` int(1) NOT NULL DEFAULT 1
+  `id` int(10) NOT NULL,
+  `name` varchar(250) NOT NULL,
+  `image` varchar(100) DEFAULT NULL,
+  `created_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `created_by` int(10) NOT NULL DEFAULT 0,
+  `status` int(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `scholar`
 --
 
-INSERT INTO `scholar` (`scholar_id`, `scholar_name`, `scholar_image`, `scholar_created_date`, `scholar_created_by`, `scholar_status`) VALUES
-(1, 'gdgdgdhfhfhhh ffdgdgdgd', 'public/uploads/scholar/c/r/1673011111_56215f920c6283aae19e.png', '0000-00-00 00:00:00', 0, 0),
-(2, 'gryrtr hrtyryryreyery', 'public/uploads/scholar/b/m/1673011228_a903f99b65c5e523aabb.png', '2023-01-06 18:50:27', 0, 1),
-(3, 'rwetewtetete', 'public/uploads/scholar/5/l/1673011417_958b0b39170672a6acf4.png', '2023-01-06 18:52:37', 0, 0);
+INSERT INTO `scholar` (`id`, `name`, `image`, `created_date`, `created_by`, `status`) VALUES
+(1, 'State Minister Scholar', 'public/uploads/scholar/c/r/1673011111_56215f920c6283aae19e.png', '0000-00-00 00:00:00', 0, 0),
+(2, 'Priminister Rural Scholarship', 'public/uploads/scholar/5/t/1673529156_c772a02c8e2e4b45fd72.png', '2023-01-06 18:50:27', 0, 1),
+(3, '10th Standared Scholarship', 'public/uploads/scholar/5/l/1673011417_958b0b39170672a6acf4.png', '2023-01-06 18:52:37', 0, 1),
+(4, 'New Scholar By Admin', 'public/uploads/scholar/q/o/1673523456_bf281b1fcfd19aeed639.png', '2023-01-12 17:07:36', 0, 1),
+(5, '8th Standared Scholar', 'public/uploads/scholar/8/6/1673529487_2a63b3d66791c67ebd8b.png', '2023-01-12 18:38:58', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -446,23 +513,6 @@ INSERT INTO `store` (`id`, `name`, `mobile`, `dealer`, `image`, `about`, `line1`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `student_metrics`
---
-
-CREATE TABLE `student_metrics` (
-  `student_metrics_id` int(10) NOT NULL,
-  `student_metrics_user_id` int(10) NOT NULL DEFAULT 0,
-  `student_metrics_metrics_id` int(10) NOT NULL DEFAULT 0,
-  `student_metrics_passing_year` date DEFAULT NULL,
-  `student_metrics_obtained_marks` double(10,2) NOT NULL DEFAULT 0.00,
-  `student_metrics_total_marks` double(10,2) NOT NULL DEFAULT 0.00,
-  `student_metrics_document` int(10) NOT NULL DEFAULT 0,
-  `student_metrics_is_verified` int(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `student_profile`
 --
 
@@ -484,7 +534,7 @@ CREATE TABLE `student_profile` (
 
 CREATE TABLE `users` (
   `id` int(10) NOT NULL,
-  `code` varchar(20) DEFAULT NULL,
+  `code` varchar(32) DEFAULT NULL,
   `type` int(10) NOT NULL DEFAULT 0,
   `fname` varchar(30) DEFAULT NULL,
   `mname` varchar(30) DEFAULT NULL,
@@ -511,14 +561,14 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `code`, `type`, `fname`, `mname`, `lname`, `email`, `mobile`, `password`, `address_id`, `district`, `state`, `country`, `image`, `email_verified`, `mobile_verified`, `charges`, `created_date`, `updated_date`, `deleted_date`, `status`) VALUES
-(1, NULL, 1, 'Kaushal', NULL, 'Sachan', 'kaushyedu@gmail.com', '894788883', '25d55ad283aa400af464c76d713c07ad', NULL, NULL, NULL, NULL, 'public/img/user_default.png', 1, 1, 0.00, '2022-12-09 18:07:48', NULL, NULL, 'Deleted'),
-(2, NULL, 2, 'Kaushal', '', 'Sachan', 'kaushyedu2@gmail.com', '7894561232', '25d55ad283aa400af464c76d713c07ad', 8, NULL, 'ANDAMAN and NICOBAR', 'India', 'public/img/user_default.png', 1, 1, 0.00, '2022-12-09 18:57:36', NULL, NULL, 'Suspended'),
-(3, NULL, 1, 'Kaushal', NULL, 'Sachan', 'kaushyedu3@gmail.com', '8978978999', '251c1a8acc5fae4bf6eab5aba0ed8473', NULL, NULL, NULL, NULL, 'public/img/user_default.png', 0, 0, 0.00, '2022-12-09 19:20:19', NULL, NULL, 'Active'),
-(4, NULL, 2, 'Kaushal', '', 'Sachan', 'cooldudekaushy@gmail.com', '7894561239', '25d55ad283aa400af464c76d713c07ad', 7, NULL, 'ANDAMAN and NICOBAR', 'India', 'public/uploads/user/x/d/1673000213_e3e86b07605ee7df3c1c.png', 1, 1, 1.00, '2022-12-09 19:20:50', NULL, NULL, 'Unverified'),
-(5, NULL, 2, 'Kaushal', 'Singh', 'Sachan', 'ksssssjjjfkfk@gmail.com', '8947889123', '25d55ad283aa400af464c76d713c07ad', 10, 'rerwerwrw', 'ANDAMAN and NICOBAR', 'India', 'public/img/user_default.png', 1, 1, 250.00, '2022-12-23 22:16:08', NULL, NULL, 'Active'),
-(6, NULL, 2, 'Kuldeep', 'Singh', 'Kumar', 'kuldeep@gmail.com', '8947889123', 'BtkYr2bv', 1, 'Kanpur', 'UTTAR PRADESH', 'India', 'public/img/user_default.png', 1, 1, 9000.00, '2022-12-24 00:05:56', NULL, '2023-01-09 01:30:21', 'Deleted'),
-(7, NULL, 2, 'rtewr', 'eryewrywery', 'ryeryereyr', 'kaushyedu66@gmail.com', '5475475754', NULL, 12, 'hdfhdfhdfh', 'ANDAMAN and NICOBAR', 'India', 'public/uploads/user/r/k/1673004274_db6631fcc857172f22ff.png', 1, 1, 4444.00, '2022-12-27 15:50:00', NULL, NULL, 'Active'),
-(8, NULL, 3, 'dsdfsd', 'fsdfsdf', 'dffsdf', 'dfsdsfs@gggg.ccc', '8675745645', NULL, 11, NULL, 'RAJASTHAN', 'India', 'public/uploads/user/3/z/1672998920_562c067e8bfb63d226c9.png', 1, 1, 0.00, '2023-01-06 15:25:19', NULL, NULL, 'Active');
+(1, 'fc3e264edc2acd0cf356babbf39bda52', 1, 'Kaushal', NULL, 'Sachan', 'kaushyedu@gmail.com', '894788883', '25d55ad283aa400af464c76d713c07ad', NULL, NULL, NULL, NULL, 'public/img/user_default.png', 1, 1, 0.00, '2022-12-09 18:07:48', NULL, NULL, 'Active'),
+(2, 'c16c052845d10a0fec95b969c4c55dd0', 2, 'Kaushal', '', 'Sachan', 'kaushyedu2@gmail.com', '7894561232', '25d55ad283aa400af464c76d713c07ad', 8, NULL, 'ANDAMAN and NICOBAR', 'India', 'public/img/user_default.png', 1, 1, 0.00, '2022-12-09 18:57:36', NULL, NULL, 'Suspended'),
+(3, '8a7832214425b3f4fd8b4c609673d537', 1, 'Kaushal', NULL, 'Sachan', 'kaushyedu3@gmail.com', '8978978999', '251c1a8acc5fae4bf6eab5aba0ed8473', NULL, NULL, NULL, NULL, 'public/img/user_default.png', 0, 0, 0.00, '2022-12-09 19:20:19', NULL, NULL, 'Active'),
+(4, '7280a9b101fc8e421b619c031f9e33c7', 1, 'Kaushal', '', 'Sachan', 'cooldudekaushy@gmail.com', '7894561239', '25d55ad283aa400af464c76d713c07ad', 7, 'dfgdfgdf', 'ANDAMAN and NICOBAR', 'India', 'public/img/user_default.png', 1, 1, 1.00, '2022-12-09 19:20:50', NULL, NULL, 'Unverified'),
+(5, 'a94f853353abf08755cc7a71a6b90981', 2, 'Kaushal', 'Singh', 'Sachan', 'ksssssjjjfkfk@gmail.com', '8947889123', 'eefa5c7446c38e5f2def619ede7933a4', 10, 'rerwerwrw', 'ANDAMAN and NICOBAR', 'India', 'public/img/user_default.png', 1, 1, 250.00, '2022-12-23 22:16:08', NULL, NULL, 'Active'),
+(6, '8d8abc45a6048e7d3c5f7fb5c9abc12a', 2, 'Kuldeep', 'Singh', 'Kumar', 'kuldeep@gmail.com', '8947889123', 'BtkYr2bv', 1, 'Kanpur', 'UTTAR PRADESH', 'India', 'public/img/user_default.png', 1, 1, 9000.00, '2022-12-24 00:05:56', NULL, NULL, 'Active'),
+(7, '0a56e87a9c6996d0bd4fa5d687e352f7', 2, 'rtewr', 'eryewrywery', 'ryeryereyr', 'kaushyedu66@gmail.com', '5475475754', NULL, 12, 'hdfhdfhdfh', 'ANDAMAN and NICOBAR', 'India', 'public/uploads/user/r/k/1673004274_db6631fcc857172f22ff.png', 1, 1, 4444.00, '2022-12-27 15:50:00', NULL, NULL, 'Active'),
+(8, '43a21875d0e40b6ea5dad2694938c321', 3, 'dsdfsd', 'fsdfsdf', 'dffsdf', 'dfsdsfs@gggg.ccc', '8675745645', NULL, 11, NULL, 'RAJASTHAN', 'India', 'public/uploads/user/3/z/1672998920_562c067e8bfb63d226c9.png', 1, 1, 0.00, '2023-01-06 15:25:19', NULL, NULL, 'Active');
 
 -- --------------------------------------------------------
 
@@ -596,6 +646,23 @@ CREATE TABLE `user_login` (
   `login_created_date` datetime NOT NULL DEFAULT current_timestamp(),
   `login_token` varchar(250) DEFAULT NULL,
   `login_status` int(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_metrics`
+--
+
+CREATE TABLE `user_metrics` (
+  `id` int(10) NOT NULL,
+  `user_id` int(10) NOT NULL DEFAULT 0,
+  `metrics_id` int(10) NOT NULL DEFAULT 0,
+  `passing_year` date DEFAULT NULL,
+  `obtained_marks` double(10,2) NOT NULL DEFAULT 0.00,
+  `total_marks` double(10,2) NOT NULL DEFAULT 0.00,
+  `document_id` int(10) NOT NULL DEFAULT 0,
+  `is_verified` int(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -715,7 +782,7 @@ ALTER TABLE `log_login`
 -- Indexes for table `metrics`
 --
 ALTER TABLE `metrics`
-  ADD PRIMARY KEY (`metrics_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `qrcodes`
@@ -725,10 +792,16 @@ ALTER TABLE `qrcodes`
   ADD UNIQUE KEY `code` (`code`);
 
 --
+-- Indexes for table `qualification`
+--
+ALTER TABLE `qualification`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `scholar`
 --
 ALTER TABLE `scholar`
-  ADD PRIMARY KEY (`scholar_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `scholar_enrollment`
@@ -755,12 +828,6 @@ ALTER TABLE `store`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `student_metrics`
---
-ALTER TABLE `student_metrics`
-  ADD PRIMARY KEY (`student_metrics_id`);
-
---
 -- Indexes for table `student_profile`
 --
 ALTER TABLE `student_profile`
@@ -770,13 +837,21 @@ ALTER TABLE `student_profile`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `code` (`code`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- Indexes for table `user_login`
 --
 ALTER TABLE `user_login`
   ADD PRIMARY KEY (`login_id`);
+
+--
+-- Indexes for table `user_metrics`
+--
+ALTER TABLE `user_metrics`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `user_types`
@@ -804,7 +879,7 @@ ALTER TABLE `accounts`
 -- AUTO_INCREMENT for table `activity`
 --
 ALTER TABLE `activity`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `address`
@@ -828,7 +903,7 @@ ALTER TABLE `documents`
 -- AUTO_INCREMENT for table `identities`
 --
 ALTER TABLE `identities`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `incomesource`
@@ -840,13 +915,13 @@ ALTER TABLE `incomesource`
 -- AUTO_INCREMENT for table `log_login`
 --
 ALTER TABLE `log_login`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `metrics`
 --
 ALTER TABLE `metrics`
-  MODIFY `metrics_id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `qrcodes`
@@ -855,10 +930,16 @@ ALTER TABLE `qrcodes`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `qualification`
+--
+ALTER TABLE `qualification`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `scholar`
 --
 ALTER TABLE `scholar`
-  MODIFY `scholar_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `scholar_enrollment`
@@ -879,12 +960,6 @@ ALTER TABLE `store`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `student_metrics`
---
-ALTER TABLE `student_metrics`
-  MODIFY `student_metrics_id` int(10) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
@@ -895,6 +970,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `user_login`
   MODIFY `login_id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `user_metrics`
+--
+ALTER TABLE `user_metrics`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user_types`

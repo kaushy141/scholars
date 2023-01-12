@@ -68,6 +68,38 @@
 					ARRAY(
 						"title" => "Identities",
 						"key"	=> "identities"
+					),
+					ARRAY(
+						"title" => "Qualification",
+						"key"	=> "qualification"
+					),
+					ARRAY(
+						"title" => "Metrics",
+						"key"	=> "metrics"
+					)
+				)
+			),
+			ARRAY(
+				"title" => "Connection",
+				"type"  => "item",
+				"icon"	=> "bx-layer",
+				"key"   => "connection",
+				"menu"  => ARRAY(
+					ARRAY(
+						"title" => "User Identities",
+						"key"	=> "identities"
+					),
+					ARRAY(
+						"title" => "User Metrics",
+						"key"	=> "metrics"
+					),
+					ARRAY(
+						"title" => "Metrics's Documents",
+						"key"	=> "metrics-documents"
+					),
+					ARRAY(
+						"title" => "User Documents",
+						"key"	=> "documents"
 					)
 				)
 			),

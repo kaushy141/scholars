@@ -126,7 +126,7 @@ public function signincheck()
 					'fname' => $this->request->getPost('fname'),
 					'lname' => $this->request->getPost('lname'),
 					'type' => $this->request->getPost('type'),
-					'code' => md5(trim(strtolower($this->request->getPost('email'))))
+					'code' => md5(trim(strtolower($this->request->getPost('email')))),
 					'email' => trim(strtolower($this->request->getPost('email'))),
 					'mobile' => $this->request->getPost('mobile'),
 					'password' => md5($this->request->getPost('password')),
