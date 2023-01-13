@@ -14,7 +14,7 @@
     <label class="form-label">Status</label>
 	<div class="input-group">
 	<div class="form-check form-check-inline mt-2">
-		<input name="status" class="form-check-input" type="radio" value="1" id="status_1" <?= $data['status'] == "1" ? "checked":"" ?>>
+		<input name="status" class="form-check-input" type="radio" value="1" id="status_1" <?= (!isset($data['status']) || $data['status'] == "1") ? "checked":"" ?>>
 		<label class="form-check-label" for="status_1"> Active </label>
 	  </div>
 	  <div class="form-check form-check-inline mt-2">

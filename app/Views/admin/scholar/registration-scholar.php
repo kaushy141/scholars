@@ -9,12 +9,16 @@
       <input type="text" name="name" id="name" maxlength="250" class="form-control" placeholder="Full Scholarship Name" value="<?= $data['name'] ?>">
     </div>   
 	
+	<div class="col-md-12">
+      <label class="form-label" for="details">Details</label>
+      <textarea name="details" id="details" maxlength="100000" required class="form-control" placeholder="Details about scholar..." ><?= $data['details'] ?></textarea>
+    </div>	
 	
 	<div class="col-md-4">
     <label class="form-label">Status</label>
 	<div class="input-group">
 	<div class="form-check form-check-inline mt-2">
-		<input name="status" class="form-check-input" type="radio" value="1" id="status_1" <?= $data['status'] == "1" ? "checked":"" ?>>
+		<input name="status" class="form-check-input" type="radio" value="1" id="status_1" <?= (!isset($data['status']) || $data['status'] == "1") ? "checked":"" ?>>
 		<label class="form-check-label" for="status_1"> Active </label>
 	  </div>
 	  <div class="form-check form-check-inline mt-2">
@@ -30,6 +34,30 @@
         <input type="file" name="image" id="image" class="form-control" placeholder="Scholar image" >
       </div>
     </div>
+	
+	<div class="col-sm-12">
+      <label class="form-label" for="state">Required Qualification</label>
+      <div class="row">
+		  <div class="col-sm-12">
+		  <div class="row">
+			<?php
+			if (!empty($qualifications))
+			  foreach ($qualifications as $q) {
+			?>
+			  <div class="form-check form-check-inline mb-2 mt-1">
+				<div class="form-check">
+				  <input type="checkbox" name="qualifications[]" id="qualification-<?php echo $q['id'] ?>" class="form-check-input" value="<?php echo $q['id'] ?>" <?php echo $data['qualifications'] && in_array($q['id'], $data['qualifications']) ? "checked" : "" ?> />
+				  <label class="form-check-label" for="qualification-<?php echo $q['id'] ?>"><?= img(array("src"=>base_url().'/'.$q['image'], "class"=>"w-px-20 h-auto rounded-circle"))?> <?php echo $q['name'] ?></label>
+				</div>
+			  </div>
+			<?php
+			  }
+			?>
+		  </div>
+		  </div>
+	  </div>
+    </div>	
+	
   </div>
   
  

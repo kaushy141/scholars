@@ -14,8 +14,11 @@ class Master extends AdminController
 			if($id){
 				$data = $scholar->getScholar($id);				
 				$this->setTitle("{$data['name']} Information");
+				$data['qualifications'] = $scholar->getScholarQualification($id, 'qualification_id');
 			}
-			echo $this->adminView('scholar/registration-scholar', ['data'=>$data]);
+			$qualification = model(QualificationModel::class);
+			$qualifications = $qualification->getQualificationsList();
+			echo $this->adminView('scholar/registration-scholar', ['data'=>$data, 'qualifications'=>$qualifications]);
 
 		}else{
 			$this->setFlashMessage('Permission denined.', 'danger');
@@ -39,11 +42,13 @@ class Master extends AdminController
 			$scholar = model(ScholarModel::class);
 			$validationArray = [
 				'name'  => 'required|alpha_numeric_punct',
-				'status'  => 'required|numeric'
+				'status'  => 'required|numeric',
+				'details'  => 'required|alpha_numeric_punct'
 			];
 			if ($this->validate($validationArray)){
 				$insertData = array(
 					'name' => $this->request->getPost('name'),
+					'details' => $this->request->getPost('details'),
 					'status' => $this->request->getPost('status')
 				);
 
@@ -59,11 +64,13 @@ class Master extends AdminController
 				else{
 					$scholar->update($id,$insertData);
 				}
+				
 				#=============File Upload====================================
 				if ($path = $this->uploadFile('image', 'scholar')) {
 					$scholar->update($id, ['image' => $path]);
 				}			
 				#============================================================
+				$scholar->saveScholarQualification($id, $this->request->getPost('qualifications'));
 
 				if($id){					
 					$this->setFlashMessage($newScholar ? 'Scholar created successfully.' : 'Scholar updated successully', 'success');
@@ -71,7 +78,7 @@ class Master extends AdminController
 				}
 			}else{
 				$this->setFlashMessage($this->validator->listErrors(), 'warning');
-				return $this->response->redirect(site_url("admin/secure/user/registration-scholar/{$id}"));
+				return $this->response->redirect($this->request->getUserAgent()->getReferrer());
 			}
 		}
 		else{
@@ -146,7 +153,7 @@ class Master extends AdminController
 				}
 			}else{
 				$this->setFlashMessage($this->validator->listErrors(), 'warning');
-				return $this->response->redirect(site_url("admin/secure/user/registration-identity/{$id}"));
+				return $this->response->redirect($this->request->getUserAgent()->getReferrer());
 			}
 		}
 		else{
@@ -182,7 +189,7 @@ class Master extends AdminController
 	
 	public function saveQualification($id=0)
     {
-		$newIdentity = !$id;
+		$newQualification = !$id;
 		if($this->request->getMethod() === 'post')
 		{
 			$qualification = model(QualificationModel::class);
@@ -215,12 +222,12 @@ class Master extends AdminController
 				#============================================================
 
 				if($id){					
-					$this->setFlashMessage($newScholar ? 'Qualification created successfully.' : 'Qualification updated successully', 'success');
+					$this->setFlashMessage($newQualification ? 'Qualification created successfully.' : 'Qualification updated successully', 'success');
 					return $this->response->redirect(site_url("admin/secure/master/registration-qualification/{$id}"));
 				}
 			}else{
 				$this->setFlashMessage($this->validator->listErrors(), 'warning');
-				return $this->response->redirect(site_url("admin/secure/user/registration-qualification/{$id}"));
+				return $this->response->redirect($this->request->getUserAgent()->getReferrer());
 			}
 		}
 		else{
@@ -256,17 +263,19 @@ class Master extends AdminController
 	
 	public function saveMetrics($id=0)
     {
-		$newIdentity = !$id;
+		$newMetrics = !$id;
 		if($this->request->getMethod() === 'post')
 		{
 			$metrics = model(MetricsModel::class);
 			$validationArray = [
 				'name'  => 'required|alpha_numeric_punct',
-				'status'  => 'required|numeric'
+				'status'  => 'required|numeric',
+				'details'  => 'required|alpha_numeric_punct'
 			];
 			if ($this->validate($validationArray)){
 				$insertData = array(
 					'name' => $this->request->getPost('name'),
+					'details' => $this->request->getPost('details'),
 					'status' => $this->request->getPost('status')
 				);
 
@@ -289,12 +298,12 @@ class Master extends AdminController
 				#============================================================
 
 				if($id){					
-					$this->setFlashMessage($newScholar ? 'Metrics created successfully.' : 'Metrics updated successully', 'success');
+					$this->setFlashMessage($newMetrics ? 'Metrics created successfully.' : 'Metrics updated successully', 'success');
 					return $this->response->redirect(site_url("admin/secure/master/registration-metrics/{$id}"));
 				}
 			}else{
 				$this->setFlashMessage($this->validator->listErrors(), 'warning');
-				return $this->response->redirect(site_url("admin/secure/user/registration-metrics/{$id}"));
+				return $this->response->redirect($this->request->getUserAgent()->getReferrer());
 			}
 		}
 		else{

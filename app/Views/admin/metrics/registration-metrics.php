@@ -5,16 +5,20 @@
   <?php echo form_open_multipart('admin/secure/master/savemetrics/' . intval($data['id']), ['class' => 'card-body']); ?>
   <div class="row g-3">    
 	<div class="col-md-12">
-      <label class="form-label" for="mname">Name</label>
-      <input type="text" name="name" id="name" maxlength="250" class="form-control" placeholder="Full Scholarship Name" value="<?= $data['name'] ?>">
-    </div>   
-	
+      <label class="form-label" for="name">Name</label>
+      <input type="text" name="name" id="name" maxlength="250" required class="form-control" placeholder="Full Scholarship Name" value="<?= $data['name'] ?>">
+    </div> 
+
+	<div class="col-md-12">
+      <label class="form-label" for="details">Details</label>
+      <textarea name="details" id="details" maxlength="100000" required class="form-control" placeholder="Details about metrics..." value="<?= $data['details'] ?>"></textarea>
+    </div>	
 	
 	<div class="col-md-4">
     <label class="form-label">Status</label>
 	<div class="input-group">
 	<div class="form-check form-check-inline mt-2">
-		<input name="status" class="form-check-input" type="radio" value="1" id="status_1" <?= $data['status'] == "1" ? "checked":"" ?>>
+		<input name="status" class="form-check-input" type="radio" value="1" id="status_1" <?= (!isset($data['status']) || $data['status'] == "1") ? "checked":"" ?>>
 		<label class="form-check-label" for="status_1"> Active </label>
 	  </div>
 	  <div class="form-check form-check-inline mt-2">

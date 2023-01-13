@@ -38,4 +38,13 @@ function getFolderName($root='general'){
 function getRandomPassword($length=8){
 	return substr(str_shuffle('abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ123456789'), 0, $length);
 }
+
+function dateToDb($date){
+	$dateArr = explode('/', $date);
+	return $dateArr[2].'-'.$dateArr[1].'-'.$dateArr[0];
+}
+
+function dbToDate($date){
+	return date('d/m/Y', strtotime($date));
+}
 ?>

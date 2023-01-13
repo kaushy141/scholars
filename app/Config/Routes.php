@@ -89,6 +89,14 @@ $routes->group('admin', static function($routes){
 		$routes->get('master/registration-metrics/(:any)', 'Admin\Master::registrationMetrics/$1');
 		$routes->post('master/savemetrics/(:any)', 'Admin\Master::saveMetrics/$1');
 		
+		$routes->get('scholarship/registration', 'Admin\Scholarship::registration');
+		$routes->get('scholarship/list', 'Admin\Scholarship::scholarshipList');
+		$routes->get('scholarship/registration/(:any)', 'Admin\Scholarship::registration/$1');
+		$routes->post('scholarship/save/(:any)', 'Admin\Scholarship::saveScholarship/$1');
+		$routes->get('scholarship/published', 'Admin\Scholarship::publishedScholarship');
+		$routes->get('scholarship/applied', 'Admin\Scholarship::appliedScholarship');
+		$routes->get('scholarship/commingsoon', 'Admin\Scholarship::commingsoonScholarship');
+		
 		$routes->get('master/scholar', 'Admin\Master::scholarList');
 		$routes->get('master/identities', 'Admin\Master::identitiesList');
 		$routes->get('master/qualification', 'Admin\Master::qualificationsList');

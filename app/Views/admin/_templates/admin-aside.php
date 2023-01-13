@@ -108,6 +108,33 @@
 				"type"  => "header"
 			),
 			ARRAY(
+				"title" => "Scholarship",
+				"type"  => "item",
+				"icon"	=> "bx-spa",
+				"key"   => "scholarship",
+				"menu"  => ARRAY(
+					ARRAY(
+						"title" => "Add New",
+						"key"	=> "registration"
+					),
+					ARRAY(
+						"title" => "Scholarship List",
+						"key"	=> "list"
+					),
+					ARRAY(
+						"title" => "Published",
+						"key"	=> "published"
+					),
+					ARRAY(
+						"title" => "Applied",
+						"key"	=> "applied"
+					),
+					ARRAY(
+						"title" => "Comming soon",
+						"key"	=> "commingsoon"
+					)
+				)
+			),ARRAY(
 				"title" => "Users",
 				"type"  => "item",
 				"icon"	=> "bx-user",

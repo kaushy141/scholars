@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 12, 2023 at 02:26 PM
+-- Generation Time: Jan 13, 2023 at 03:02 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.28
 
@@ -92,7 +92,8 @@ INSERT INTO `activity` (`id`, `user_id`, `title`, `content`, `variant`, `link`, 
 (31, 5, 'Account', 'Account password changed', 'warning', NULL, '2023-01-11 06:47:13', '127.0.0.1', 'Windows 10|Firefox 108.0', 4),
 (32, 6, 'Account', 'Account activated', 'success', NULL, '2023-01-11 06:47:27', '127.0.0.1', 'Windows 10|Firefox 108.0', 4),
 (33, 2, 'Account', 'Signin successfull', 'primary', NULL, '2023-01-12 09:30:07', '127.0.0.1', 'Windows 10|Firefox 108.0', 2),
-(34, 1, 'Account', 'Signin successfull', 'primary', NULL, '2023-01-12 09:31:51', '127.0.0.1', 'Windows 10|Firefox 108.0', 1);
+(34, 1, 'Account', 'Signin successfull', 'primary', NULL, '2023-01-12 09:31:51', '127.0.0.1', 'Windows 10|Firefox 108.0', 1),
+(35, 1, 'Account', 'Signin successfull', 'primary', NULL, '2023-01-13 06:44:23', '127.0.0.1', 'Windows 10|Firefox 108.0', 1);
 
 -- --------------------------------------------------------
 
@@ -285,7 +286,8 @@ INSERT INTO `log_login` (`id`, `user_id`, `login_time`, `logout_time`, `device`,
 (36, 1, '2023-01-10 18:53:12', NULL, 'Windows 10|Firefox 108.0', '127.0.0.1', 'hq9ob5vhjjba0ddc8odfl9a8akoag9p1'),
 (37, 4, '2023-01-11 11:12:44', NULL, 'Windows 10|Firefox 108.0', '127.0.0.1', 'iqcj3ngnhf6r3br7agr06jtkc9h0nv21'),
 (38, 2, '2023-01-12 15:00:07', '2023-01-12 03:30:41', 'Windows 10|Firefox 108.0', '127.0.0.1', 'e60kdb2s16ssakd1ilmjlc5fo4rkiqdt'),
-(39, 1, '2023-01-12 15:01:51', NULL, 'Windows 10|Firefox 108.0', '127.0.0.1', 'jv0liv7uc0k6h9tdn2bct5t4ll349c9u');
+(39, 1, '2023-01-12 15:01:51', NULL, 'Windows 10|Firefox 108.0', '127.0.0.1', 'jv0liv7uc0k6h9tdn2bct5t4ll349c9u'),
+(40, 1, '2023-01-13 12:14:23', NULL, 'Windows 10|Firefox 108.0', '127.0.0.1', '3geao298beuncnerkt4g1330n0ihdnod');
 
 -- --------------------------------------------------------
 
@@ -308,7 +310,13 @@ CREATE TABLE `metrics` (
 --
 
 INSERT INTO `metrics` (`id`, `name`, `details`, `created_date`, `image`, `created_by`, `status`) VALUES
-(1, '8th Marksheet', NULL, '2023-01-12 18:56:03', 'public/uploads/metrics/w/9/1673529963_5ffc7f2b1473c37af0b2.png', 0, 1);
+(1, '8th Marksheet', NULL, '2023-01-12 18:56:03', 'public/uploads/metrics/w/9/1673529963_5ffc7f2b1473c37af0b2.png', 0, 1),
+(2, '10th Certificate', NULL, '2023-01-13 12:16:07', 'public/uploads/metrics/4/w/1673592367_2eec460246ac6c04c55a.png', 0, 1),
+(3, '10+2 Certitifate', NULL, '2023-01-13 12:17:21', 'public/uploads/metrics/t/5/1673592441_821204a154c1267bd909.png', 0, 1),
+(4, '10+2 Marksheet', NULL, '2023-01-13 12:17:55', 'public/uploads/metrics/h/c/1673592475_1816fce8013eac683065.png', 0, 1),
+(5, 'Graduation Certificate', NULL, '2023-01-13 12:18:22', 'public/uploads/metrics/p/x/1673592502_c5519440471612a1be16.png', 0, 1),
+(6, 'Graduation Marksheet', NULL, '2023-01-13 12:18:55', 'public/uploads/metrics/7/7/1673592535_71e021d7e007d17a33f7.png', 0, 1),
+(7, 'Post Graduation Certificate', NULL, '2023-01-13 12:19:37', 'public/uploads/metrics/d/q/1673592577_f04b2776253ded3c365d.png', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -349,7 +357,10 @@ CREATE TABLE `qualification` (
 
 INSERT INTO `qualification` (`id`, `name`, `image`, `created_date`, `created_by`, `status`) VALUES
 (1, '8th Standared', 'public/uploads/qualification/a/6/1673529516_4959dcc2837c85669a83.png', '2023-01-12 18:48:36', 0, 1),
-(2, '10th Standared', 'public/uploads/qualification/v/7/1673529923_5c0ae66db1fe74ff0258.png', '2023-01-12 18:55:23', 0, 1);
+(2, '10th Standared', 'public/uploads/qualification/v/7/1673529923_5c0ae66db1fe74ff0258.png', '2023-01-12 18:55:23', 0, 1),
+(3, '10+2 Intermediate Passed', 'public/uploads/qualification/1/s/1673592874_944cecd212024de3877c.png', '2023-01-13 12:24:34', 0, 1),
+(4, 'Graduation', 'public/uploads/qualification/r/b/1673592899_7154c02dff30d199b10b.png', '2023-01-13 12:24:59', 0, 1),
+(5, 'Post Graduation', 'public/uploads/qualification/t/6/1673592921_f34a5f24bc314b28aa88.png', '2023-01-13 12:25:21', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -372,6 +383,7 @@ CREATE TABLE `qualification_metrics` (
 CREATE TABLE `scholar` (
   `id` int(10) NOT NULL,
   `name` varchar(250) NOT NULL,
+  `details` text DEFAULT NULL,
   `image` varchar(100) DEFAULT NULL,
   `created_date` datetime NOT NULL DEFAULT current_timestamp(),
   `created_by` int(10) NOT NULL DEFAULT 0,
@@ -382,46 +394,85 @@ CREATE TABLE `scholar` (
 -- Dumping data for table `scholar`
 --
 
-INSERT INTO `scholar` (`id`, `name`, `image`, `created_date`, `created_by`, `status`) VALUES
-(1, 'State Minister Scholar', 'public/uploads/scholar/c/r/1673011111_56215f920c6283aae19e.png', '0000-00-00 00:00:00', 0, 0),
-(2, 'Priminister Rural Scholarship', 'public/uploads/scholar/5/t/1673529156_c772a02c8e2e4b45fd72.png', '2023-01-06 18:50:27', 0, 1),
-(3, '10th Standared Scholarship', 'public/uploads/scholar/5/l/1673011417_958b0b39170672a6acf4.png', '2023-01-06 18:52:37', 0, 1),
-(4, 'New Scholar By Admin', 'public/uploads/scholar/q/o/1673523456_bf281b1fcfd19aeed639.png', '2023-01-12 17:07:36', 0, 1),
-(5, '8th Standared Scholar', 'public/uploads/scholar/8/6/1673529487_2a63b3d66791c67ebd8b.png', '2023-01-12 18:38:58', 0, 1);
+INSERT INTO `scholar` (`id`, `name`, `details`, `image`, `created_date`, `created_by`, `status`) VALUES
+(1, 'State Minister Scholar', NULL, 'public/uploads/scholar/c/r/1673011111_56215f920c6283aae19e.png', '0000-00-00 00:00:00', 0, 0),
+(2, 'Prim minister Rural Scholarship', 'About prim minister Rural Scholarship', 'public/uploads/scholar/5/t/1673529156_c772a02c8e2e4b45fd72.png', '2023-01-06 18:50:27', 0, 1),
+(3, '10th Standared Scholarship', 'About 10th Standard Scholarship', 'public/uploads/scholar/5/l/1673011417_958b0b39170672a6acf4.png', '2023-01-06 18:52:37', 0, 1),
+(4, 'New Scholar By Admin', NULL, 'public/uploads/scholar/q/o/1673523456_bf281b1fcfd19aeed639.png', '2023-01-12 17:07:36', 0, 1),
+(5, '8th Standared Scholar', NULL, 'public/uploads/scholar/8/6/1673529487_2a63b3d66791c67ebd8b.png', '2023-01-12 18:38:58', 0, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `scholar_enrollment`
+-- Table structure for table `scholarship`
 --
 
-CREATE TABLE `scholar_enrollment` (
-  `enrollment_id` int(11) NOT NULL,
-  `enrollment_user_id` int(10) DEFAULT NULL,
-  `enrollment_scholar_id` int(10) DEFAULT NULL,
-  `enrollment_created_date` datetime NOT NULL DEFAULT current_timestamp(),
-  `enrollment_status` int(1) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `scholar_list`
---
-
-CREATE TABLE `scholar_list` (
-  `scholar_list_id` int(10) NOT NULL,
+CREATE TABLE `scholarship` (
+  `id` int(10) NOT NULL,
   `scholar_id` int(10) DEFAULT 0,
-  `scholar_list_amount` int(10) DEFAULT 0,
-  `scholar_list_year` datetime DEFAULT NULL,
-  `scholar_list_reg_start_date` datetime DEFAULT NULL,
-  `scholar_list_reg_end_date` datetime DEFAULT NULL,
-  `scholar_list_publish_date` datetime DEFAULT NULL,
-  `scholar_list_announce_date` datetime DEFAULT NULL,
-  `scholar_list_created_by` int(10) NOT NULL DEFAULT 0,
-  `scholar_list_created_date` datetime NOT NULL DEFAULT current_timestamp(),
-  `scholar_list_status` int(1) NOT NULL DEFAULT 1
+  `amount` int(10) DEFAULT 0,
+  `year` year(4) DEFAULT NULL,
+  `publish_date` datetime DEFAULT NULL,
+  `reg_start_date` datetime DEFAULT NULL,
+  `reg_end_date` datetime DEFAULT NULL,
+  `announce_date` datetime DEFAULT NULL,
+  `cycle` enum('Monthly','Quaterly','Half Yearly','Yearly','Once Only') DEFAULT NULL,
+  `auto_renew` tinyint(1) NOT NULL DEFAULT 0,
+  `created_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_date` datetime DEFAULT NULL,
+  `deleted_date` datetime DEFAULT NULL,
+  `created_by` int(10) NOT NULL DEFAULT 0,
+  `status` int(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `scholarship`
+--
+
+INSERT INTO `scholarship` (`id`, `scholar_id`, `amount`, `year`, `publish_date`, `reg_start_date`, `reg_end_date`, `announce_date`, `cycle`, `auto_renew`, `created_date`, `updated_date`, `deleted_date`, `created_by`, `status`) VALUES
+(1, 2, 435345, 2023, '2023-01-14 00:00:00', '2023-01-15 00:00:00', '2023-01-16 00:00:00', '2023-01-17 00:00:00', 'Yearly', 1, '2023-01-13 13:59:04', NULL, NULL, 0, 1),
+(2, 3, 2000, 2023, '2023-01-13 00:00:00', '2023-01-16 00:00:00', '2023-01-17 00:00:00', '2023-01-18 00:00:00', 'Yearly', 1, '2023-01-13 17:43:48', NULL, NULL, 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `scholar_applied`
+--
+
+CREATE TABLE `scholar_applied` (
+  `id` int(11) NOT NULL,
+  `user_id` int(10) DEFAULT NULL,
+  `scholar_id` int(10) DEFAULT NULL,
+  `created_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `status` int(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `scholar_qualification`
+--
+
+CREATE TABLE `scholar_qualification` (
+  `scholar_id` int(10) NOT NULL DEFAULT 0,
+  `qualification_id` int(10) NOT NULL DEFAULT 0,
+  `status` int(1) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `scholar_qualification`
+--
+
+INSERT INTO `scholar_qualification` (`scholar_id`, `qualification_id`, `status`) VALUES
+(2, 1, 1),
+(2, 2, 1),
+(2, 3, 1),
+(3, 1, 1),
+(3, 2, 1),
+(4, 1, 1),
+(5, 1, 1),
+(5, 2, 1),
+(2, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -804,16 +855,16 @@ ALTER TABLE `scholar`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `scholar_enrollment`
+-- Indexes for table `scholarship`
 --
-ALTER TABLE `scholar_enrollment`
-  ADD PRIMARY KEY (`enrollment_id`);
+ALTER TABLE `scholarship`
+  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `scholar_list`
+-- Indexes for table `scholar_applied`
 --
-ALTER TABLE `scholar_list`
-  ADD PRIMARY KEY (`scholar_list_id`);
+ALTER TABLE `scholar_applied`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `states`
@@ -879,7 +930,7 @@ ALTER TABLE `accounts`
 -- AUTO_INCREMENT for table `activity`
 --
 ALTER TABLE `activity`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `address`
@@ -915,13 +966,13 @@ ALTER TABLE `incomesource`
 -- AUTO_INCREMENT for table `log_login`
 --
 ALTER TABLE `log_login`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `metrics`
 --
 ALTER TABLE `metrics`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `qrcodes`
@@ -933,7 +984,7 @@ ALTER TABLE `qrcodes`
 -- AUTO_INCREMENT for table `qualification`
 --
 ALTER TABLE `qualification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `scholar`
@@ -942,16 +993,16 @@ ALTER TABLE `scholar`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `scholar_enrollment`
+-- AUTO_INCREMENT for table `scholarship`
 --
-ALTER TABLE `scholar_enrollment`
-  MODIFY `enrollment_id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `scholarship`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `scholar_list`
+-- AUTO_INCREMENT for table `scholar_applied`
 --
-ALTER TABLE `scholar_list`
-  MODIFY `scholar_list_id` int(10) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `scholar_applied`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `store`

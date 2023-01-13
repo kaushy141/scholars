@@ -45,6 +45,15 @@ class CommonController extends BaseController
 		$this->session = \Config\Services::session();
 		helper($this->helpers);
     }
+	
+	public function date_validate($date){
+		$d = DateTime::createFromFormat('d/m/Y', $date);
+		if($d && $d->format('d/m/Y') === $date || $date == ''){
+			return true;
+		}else{
+			return false;
+		}
+    }
 
 	public function uploadFile($image, $folder=null){
 		$folder??="general";

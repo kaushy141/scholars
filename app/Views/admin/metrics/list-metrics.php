@@ -11,6 +11,7 @@
 	  <table class="table">
 		<thead class="table-light">
 		  <tr>
+			<th>#icon</th>
 			<th>Name</th>
 			<th>Created</th>
 			<th>Status</th>
@@ -23,6 +24,7 @@
 			foreach($metricslist as $item){
 		?>
 		  <tr>
+			<td><i class="fab fa-angular fa-lg text-danger me-3"></i><strong><?= img(array("src"=>base_url().'/'.$item['image'], "class"=>"w-px-40 h-auto rounded-circle"))?></strong></td>
 			<td><?php echo $item['name']?></td>
 			<td><span class=""><?php echo dateView($item['created_date'])?></span></td>
 			<th><span class="badge bg-label-<?php echo booleanClass($item['status'])?> me-1"><?php echo booleanLabel($item['status'])?></span></th>
