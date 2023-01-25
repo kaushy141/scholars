@@ -8,7 +8,7 @@ $routes = Services::routes();
 // Load the system's routing file first, so that the app and ENVIRONMENT
 // can override as needed.
 if (is_file(SYSTEMPATH . 'Config/Routes.php')) {
-    require SYSTEMPATH . 'Config/Routes.php';
+	require SYSTEMPATH . 'Config/Routes.php';
 }
 
 /*
@@ -41,21 +41,21 @@ $routes->get('/about', 'Home::about');
 $routes->get('/messages', 'Home::messages');
 $routes->get('/contacts', 'Home::contacts');
 $routes->get('user-verification/(:any)', 'Admin\Auth::verification/$1');
-$routes->group('admin', static function($routes){
+$routes->group('admin', static function ($routes) {
 	$routes->get('', 'Admin\Auth::signin');
 	$routes->group('auth', static function ($routes) {
 		$routes->get('', 'Admin\Auth::signin');
 		$routes->get('signin', 'Admin\Auth::signin');
 		$routes->get('signup', 'Admin\Auth::signup');
-		$routes->get('logout/(:hash)', 'Admin\Auth::logout/$1');		
+		$routes->get('logout/(:hash)', 'Admin\Auth::logout/$1');
 		$routes->post('signincheck', 'Admin\Auth::signincheck');
 		$routes->post('signupcheck', 'Admin\Auth::signupcheck');
 	});
-	
+
 	$routes->group('secure', ['filter' => 'adminlogin'], static function ($routes) {
 		$routes->get('', 'Admin\Dashboard::index');
 		$routes->get('dashboard', 'Admin\Dashboard::index');
-		
+
 		$routes->get('user/registration', 'Admin\User::registration');
 		$routes->get('user/registration/(:any)', 'Admin\User::registration/$1');
 		$routes->get('user/profile', 'Admin\User::profile');
@@ -64,31 +64,32 @@ $routes->group('admin', static function($routes){
 		$routes->post('user/save/(:any)', 'Admin\User::save/$1');
 		$routes->get('user/admin', 'Admin\User::admin');
 		$routes->get('user/donner', 'Admin\User::donner');
-		$routes->get('user/student', 'Admin\User::student');		
+		$routes->get('user/student', 'Admin\User::student');
 		$routes->get('user/activate/(:any)', 'Admin\User::activate/$1');
 		$routes->get('user/unverified/(:any)', 'Admin\User::unverified/$1');
 		$routes->get('user/suspend/(:any)', 'Admin\User::suspend/$1');
 		$routes->get('user/delete/(:any)', 'Admin\User::delete/$1');
 		$routes->get('user/send-email-conf-link/(:any)', 'Admin\User::sendEmailLink/$1');
 		$routes->get('user/change-password/(:any)', 'Admin\User::changeUserPassword/$1');
-		
-		
+		$routes->get('user/search-student/(:any)', 'Admin\User::searchStudent/$1');
+
+
 		$routes->get('master/registration-scholar', 'Admin\Master::registrationScholar');
 		$routes->get('master/registration-scholar/(:any)', 'Admin\Master::registrationScholar/$1');
 		$routes->post('master/savescholar/(:any)', 'Admin\Master::saveScholar/$1');
-		
+
 		$routes->get('master/registration-identity', 'Admin\Master::registrationIdentity');
 		$routes->get('master/registration-identity/(:any)', 'Admin\Master::registrationIdentity/$1');
 		$routes->post('master/saveidentity/(:any)', 'Admin\Master::saveIdentity/$1');
-		
+
 		$routes->get('master/registration-qualification', 'Admin\Master::registrationQualification');
 		$routes->get('master/registration-qualification/(:any)', 'Admin\Master::registrationQualification/$1');
 		$routes->post('master/savequalification/(:any)', 'Admin\Master::saveQualification/$1');
-		
+
 		$routes->get('master/registration-metrics', 'Admin\Master::registrationMetrics');
 		$routes->get('master/registration-metrics/(:any)', 'Admin\Master::registrationMetrics/$1');
 		$routes->post('master/savemetrics/(:any)', 'Admin\Master::saveMetrics/$1');
-		
+
 		$routes->get('scholarship/registration', 'Admin\Scholarship::registration');
 		$routes->get('scholarship/list', 'Admin\Scholarship::scholarshipList');
 		$routes->get('scholarship/registration/(:any)', 'Admin\Scholarship::registration/$1');
@@ -96,15 +97,14 @@ $routes->group('admin', static function($routes){
 		$routes->get('scholarship/published', 'Admin\Scholarship::publishedScholarship');
 		$routes->get('scholarship/applied', 'Admin\Scholarship::appliedScholarship');
 		$routes->get('scholarship/commingsoon', 'Admin\Scholarship::commingsoonScholarship');
-		
+
 		$routes->get('master/scholar', 'Admin\Master::scholarList');
 		$routes->get('master/identities', 'Admin\Master::identitiesList');
 		$routes->get('master/qualification', 'Admin\Master::qualificationsList');
 		$routes->get('master/metrics', 'Admin\Master::metricsList');
-		
+
 		$routes->post('store/save/(:id)', 'Admin\Store::save');
 	});
-	
 });
 
 
@@ -122,5 +122,5 @@ $routes->group('admin', static function($routes){
  * needing to reload it.
  */
 if (is_file(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
-    require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
+	require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
 }

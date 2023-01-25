@@ -26,6 +26,16 @@ function booleanLabel($status)
     return isset($statusLabelArray[$status])?$statusLabelArray[$status]:"Other";
 }
 
+function currentFinYear() 
+{
+	return date('m') < 4 ? ((date('Y') - 1) - 2000) . (date('Y') - 2000) : (date('Y') - 2000) . ((date('Y') + 1) - 2000);
+}
+
+function finYearView($finYear){
+	$f = str_split($finYear, 2);
+    return "20" . $f[0] . " - " . "20" . $f[1];
+}
+
 function dateView($timestamp, $format = 'D, dM-Y'){
 	return date($format, strtotime($timestamp));
 }

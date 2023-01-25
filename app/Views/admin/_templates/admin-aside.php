@@ -62,7 +62,7 @@
 				"key"   => "master",
 				"menu"  => ARRAY(
 					ARRAY(
-						"title" => "Scholar",
+						"title" => "Scholar name",
 						"key"	=> "scholar"
 					),
 					ARRAY(

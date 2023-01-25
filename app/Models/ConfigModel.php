@@ -2,7 +2,7 @@
 namespace App\Models;
 use App\Models\MyModel;
 
-class UserModel extends MyModel {
+class ConfigModel extends MyModel {
 
 	protected $table      = 'config';
     protected $primaryKey = 'id';

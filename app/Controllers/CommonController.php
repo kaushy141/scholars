@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+
 use App\Libraries\Html;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
@@ -15,72 +16,76 @@ class CommonController extends BaseController
 	public $email;
 	protected $helpers = ['form', 'url', 'html', 'my', 'date', 'filesystem'];
 	public $head = array(
-		"title" => "Welcome to ".APP_NAME,
-		"description" => "Get details about ".APP_NAME,
+		"title" => "Welcome to " . APP_NAME,
+		"description" => "Get details about " . APP_NAME,
 		"image" => "",
 		"site_name" => APP_NAME,
-		"url" =>APP_CANONICAL_URL,
-		"type" =>"website",
-		"page_name" =>APP_NAME,
-		"author" =>APP_NAME
+		"url" => APP_CANONICAL_URL,
+		"type" => "website",
+		"page_name" => APP_NAME,
+		"author" => APP_NAME
 	);
-	
-	public function setTitle($title){
+
+	public function setTitle($title)
+	{
 		$this->head['title'] = $title;
 		return $this;
 	}
-	public function setDescription($description){
+	public function setDescription($description)
+	{
 		$this->head['description'] = $description;
 		return $this;
 	}
-	
+
 	public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
-    {
-        // Do Not Edit This Line
-        parent::initController($request, $response, $logger);
+	{
+		// Do Not Edit This Line
+		parent::initController($request, $response, $logger);
 
-        // Preload any models, libraries, etc, here.
+		// Preload any models, libraries, etc, here.
 
-        // E.g.: $this->session = \Config\Services::session();
+		// E.g.: $this->session = \Config\Services::session();
 		$this->session = \Config\Services::session();
 		helper($this->helpers);
-    }
-	
-	public function date_validate($date){
+	}
+
+	public function date_validate($date)
+	{
 		$d = DateTime::createFromFormat('d/m/Y', $date);
-		if($d && $d->format('d/m/Y') === $date || $date == ''){
+		if ($d && $d->format('d/m/Y') === $date || $date == '') {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
-    }
+	}
 
-	public function uploadFile($image, $folder=null){
-		$folder??="general";
-		if(isset($_FILES[$image]['name']) && !empty($_FILES[$image]['name'])){
-			if($file = $this->request->getFile($image)) {
+	public function uploadFile($image, $folder = null)
+	{
+		$folder ??= "general";
+		if (isset($_FILES[$image]['name']) && !empty($_FILES[$image]['name'])) {
+			if ($file = $this->request->getFile($image)) {
 				if ($path = $file->store(getFolderName($folder))) {
-					$newFileLoc = 'public/uploads/'.$path;
-					mkdir(FCPATH.dirname($newFileLoc), 0777, true);
-					rename(FCPATH.'writable/uploads/'.$path, FCPATH.$newFileLoc);
+					$newFileLoc = 'public/uploads/' . $path;
+					mkdir(FCPATH . dirname($newFileLoc), 0777, true);
+					rename(FCPATH . 'writable/uploads/' . $path, FCPATH . $newFileLoc);
 					return $newFileLoc;
-				}else
+				} else
 					return false;
-			}else
+			} else
 				return false;
-		}else
-		return false;
-	}	
-	
-	protected function sendConfirmationLink($user_id){
-		if($user_id){
+		} else
+			return false;
+	}
+
+	protected function sendConfirmationLink($user_id)
+	{
+		if ($user_id) {
 			$user = model(UserModel::class);
-			if($userData = $user->get($user_id))
-			{
-				$verificationModel = model(VerificationModel::class);			
-				$this->createEmail($userData['email'], $userData['fname'], "New Registration - ".APP_NAME);
+			if ($userData = $user->get($user_id)) {
+				$verificationModel = model(VerificationModel::class);
+				$this->createEmail($userData['email'], $userData['fname'], "New Registration - " . APP_NAME);
 				$content = $this->emailView('user-registration', $this->emailData([
-					'user_name' => $userData['fname']. ' ' .$userData['lname'],
+					'user_name' => $userData['fname'] . ' ' . $userData['lname'],
 					'app_name' => APP_NAME,
 					'activation_link' => $verificationModel->getLink($userData['id'], $verificationModel::$verificationTypeMail)
 				]));
@@ -88,20 +93,21 @@ class CommonController extends BaseController
 				$this->sentEmail();
 				$user->addActivity($this->request, $userData['id'], "Email confirmation send", "Account", "warning");
 				return true;
-			}else
+			} else
 				return false;
-		}else
+		} else
 			return false;
 	}
-	
-	protected function changePassword($user_id){
+
+	protected function changePassword($user_id)
+	{
 		$user = model(UserModel::class);
-		if($userData = $user->get($user_id)){
+		if ($userData = $user->get($user_id)) {
 			$password = getRandomPassword();
 			$user->update($userData['id'], ['password' => md5($password)]);
 			$user->addActivity($this->request, $userData['id'], "Account password changed", "Account", "warning");
 			return $password;
-		}else
+		} else
 			return false;
 	}
 
@@ -110,11 +116,12 @@ class CommonController extends BaseController
 		$parser  = \Config\Services::parser();
 		$parser->setData($data);
 		return $parser->render('admin/email-template/inc/email-header')
-		.$parser->render('admin/email-template/'.$page)
-		.$parser->render('admin/email-template/inc/email-footer');
-    }
+			. $parser->render('admin/email-template/' . $page)
+			. $parser->render('admin/email-template/inc/email-footer');
+	}
 
-	public function emailData($data = array()){
+	public function emailData($data = array())
+	{
 		$basicData = array(
 			'site_logo' => base_url('public/img/logo.png'),
 			'app_name' => APP_NAME,
@@ -126,7 +133,8 @@ class CommonController extends BaseController
 		return array_merge($basicData, $data);
 	}
 
-	public function getMessageIcon($variant){
+	public function getMessageIcon($variant)
+	{
 		$messageIconArray = array(
 			'primary' => '<i class="fa fa-check"></i>',
 			'warning' => '<i class="fa fa-warning"></i>',
@@ -137,36 +145,54 @@ class CommonController extends BaseController
 		return isset($messageIconArray[$variant]) ? $messageIconArray[$variant] : "";
 	}
 
-	public function setFlashMessage($message, $variant="primary")
-    {
-       $this->session->setFlashdata('message', $message);
-	   $this->session->setFlashdata('variant', $variant);
-	   $this->session->setFlashdata('icon', $this->getMessageIcon($variant));
-    }
+	public function setFlashMessage($message, $variant = "primary")
+	{
+		$this->session->setFlashdata('message', $message);
+		$this->session->setFlashdata('variant', $variant);
+		$this->session->setFlashdata('icon', $this->getMessageIcon($variant));
+	}
 
-	public function createEmail($to, $name, $subject=null, $message=null){
+	public function createEmail($to, $name, $subject = null, $message = null)
+	{
 		$this->email = \Config\Services::email();
 		$this->email->setFrom(DEFAULT_SENDER_EMAIL, DEFAULT_SENDER_NAME);
 		$this->email->setTo($to);
 		$this->email->setCC(DEFAULT_EMAIL_CC);
 		$this->email->setBCC(DEFAULT_EMAIL_BCC);
-		$this->email->setSubject($subject == null ? "Mail from ".APP_NAME : $subject);
+		$this->email->setSubject($subject == null ? "Mail from " . APP_NAME : $subject);
 		$this->email->setMessage($message);
 		return $this->email;
 	}
-	public function addToEmail($to){
+	public function addToEmail($to)
+	{
 		$this->email->setTo($to);
 		return $this->email;
 	}
-	public function setEmailSubject($subject){
+	public function setEmailSubject($subject)
+	{
 		$this->email->setSubject($subject);
 		return $this->email;
 	}
-	public function setEmailMessage($message){
+	public function setEmailMessage($message)
+	{
 		$this->email->setMessage($message);
 		return $this->email;
 	}
-	public function sentEmail(){
+	public function sentEmail()
+	{
 		$this->email->send();
+	}
+
+	public function json_success($data, $message = "Success")
+	{
+		$this->response->setStatusCode(200);
+		echo json_encode(['data' => $data, 'message' => $message]);
+	}
+
+	public function json_error($message)
+	{
+		$this->response->setStatusCode(404);
+		//$this->response->setJSON($message);
+		echo json_encode(['data' => null, 'message' => $message]);
 	}
 }
