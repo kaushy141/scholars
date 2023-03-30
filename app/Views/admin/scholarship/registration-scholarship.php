@@ -22,9 +22,9 @@
 
 
         <div class="col-md-4">
-            <label class="form-label" for="year">Fin Year</label>
-            <input type="text" name="year" id="year" maxlength="4" class="form-control" placeholder="Scholarship Year"
-                value="<?= $data['year'] ? $data['year'] : currentFinYear() ?>">
+            <label class="form-label" for="fin_year">Fin Year</label>
+            <input type="text" name="fin_year" id="fin_year" maxlength="4" class="form-control" placeholder="Scholarship fin year"
+                value="<?= $data['fin_year'] ? $data['fin_year'] : currentFinYear() ?>">
         </div>
 
     </div>
@@ -133,7 +133,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 mt-2 block_criteria_type block_Manual">
+                <div class="col-sm-12 mt-2 block_criteria_type block_Manual" style="display:<?= (!isset($data['criteria_type']) || $data['criteria_type'] == "Manual") ? "block" : "none" ?>">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="card mb-4">
@@ -163,7 +163,61 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 block_criteria_type block_Rules">Rules Block
+                <div class="col-sm-12 block_criteria_type block_Rules" style="display:<?= (isset($data['criteria_type']) && $data['criteria_type'] == "Rules") ? "block" : "none" ?>">
+					<div class="row">
+                        <div class="col-md-12">
+                            <div class="card mb-4">
+                                <h5 class="card-header">Add Criteria</h5>
+                                <div class="card-body demo-vertical-spacing demo-only-element">
+                                    <div class="row">
+									<div class="col-md-12">
+									<?php 
+									if($criteriaList){
+										$selectedCriteria = isset($data['scholarship_criteria']) ? array_column($data['scholarship_criteria'], 'criteria_id') : [];
+										$selectedCriteriaKey = isset($data['scholarship_criteria']) ? array_combine($selectedCriteria, $data['scholarship_criteria']) : [];
+										print_r($selectedCriteriaKey);
+										foreach($criteriaList as $_criteria){
+										?>
+										<div class="row mt-1">
+											<div class="col-sm-1"><input class="form-check-input me-1 selected_criteria" name="criteria[<?php echo $_criteria['id']?>]" type="checkbox" value="<?php echo $_criteria['id']?>" <?php echo in_array($_criteria['id'], $selectedCriteria) ? "checked":""?> /></div>
+											<div class="col-sm-11 col-md-3"><label>By <?php echo $_criteria['name']?></label></div>
+											<div class="col-sm-6 col-md-4">
+												<select name="criteria_operator[<?php echo $_criteria['id']?>]" id="citeria_operator_<?php echo $_criteria['id']?>" class="select2 form-select rules-based-input" <?php echo in_array($_criteria['id'], $selectedCriteria) ? "":"disabled"?> />
+													<option value="">-- Select Operator --</option>
+													<?php
+													$opertaorArray = explode(',', $_criteria['comparator']);
+													if (!empty($opertaorArray)){
+														foreach ($opertaorArray as $_opertaor) {
+													?>
+													<option value="<?php echo $_opertaor; ?>" <?php echo isset($selectedCriteriaKey[$_criteria['id']]) &&  $selectedCriteriaKey[$_criteria['id']]['operator'] == $_opertaor ? "selected" : ""?>><?php echo  $_opertaor; ?></option>
+													<?php
+														}
+													}
+													?>
+												</select>
+											</div>
+											<div class="col-sm-6 col-md-4">
+											<?php if(in_array('IN', $opertaorArray)){?>
+												<select name="criteria_value[<?php echo $_criteria['id']?>][]" multiple="multiple"  id="citeria_operator_<?php echo $_criteria['id']?>" class="select2 form-select rules-based-input" <?php echo in_array($_criteria['id'], $selectedCriteria) ? "":"disabled"?>>
+													<option value="" disabled class="bg-secondary">Select <?php echo $_criteria['name']?></option>
+											<?php foreach($_criteria['options'] as $_option){?>
+													<option value="<?php echo $_option['value']; ?>" <?php echo isset($selectedCriteriaKey[$_criteria['id']]) && in_array($_option['value'], explode(',', $selectedCriteriaKey[$_criteria['id']]['value'])) ? "selected" : ""?>><?php echo  $_option['value']; ?></option>
+												<?php }?>
+												</select>
+												<?php
+											}else{?>
+												<input type="number" name="criteria_value[<?php echo $_criteria['id']?>][]" id="citeria_value_<?php echo $_criteria['id']?>" class="form-control rules-based-input" <?php echo in_array($_criteria['id'], $selectedCriteria) ? "":"disabled"?> placeholder="Enter <?php echo $_criteria['name']?> value" value="<?php echo isset($selectedCriteriaKey[$_criteria['id']]) ? $selectedCriteriaKey[$_criteria['id']]['value'] : ""?>" />
+											<?php }?>
+											</div>
+										</div>
+									<?php }
+									}?>
+									</div>
+									</div>
+                                </div>
+                            </div>
+                        </div>
+					</div>
                 </div>
             </div>
         </div>
@@ -217,7 +271,6 @@ $(document).ready(function() {
 
     //=========================================================================================
 
-    $(".block_Rules").hide();
     $("input[type=radio][name=criteria_type]").on('change', function() {
         $(".block_criteria_type").hide();
         $(".block_" + $(this).val()).show()
@@ -238,20 +291,17 @@ $(document).ready(function() {
                             .map(function() {
                                 return $(this).find("input:checkbox:checked").val();
                             }).get();
-                        $.each(responseObj['data']['users'], function(key, item) {
-                            if (!selectedIds.includes(item['id']))
-                                $(".student_search_list").append(
-                                    `<label class="list-group-item row_user" id="row_user_` +
-                                    item['id'] +
-                                    `">
-                            <input class="form-check-input me-1 listed_student" type="checkbox" value="` + item['id'] +
-                                    `"> <img src="` + base_url + `/` + item[
-                                        'image'] +
-                                    `" class="w-px-20 h-auto rounded-circle" alt="` +
-                                    item['fname'] + `" />
-                            ` + item['fname'] + ` ` + item['mname'] + ` ` + item['lname'] + ` (` + item['email'] + `)
-                          </label>`);
-                        });
+							if(responseObj['data']['users'].length){
+								$.each(responseObj['data']['users'], function(key, item) {
+									if (!selectedIds.includes(item['id'])){										
+										$(".student_selected_list").find(".row_empty").remove();
+										$(".student_search_list").append('<label class="list-group-item row_user" id="row_user_' +
+											item['id'] + '"><input class="form-check-input me-1 listed_student" type="checkbox" value="' + item['id'] + '"> <img src="' + base_url + '/' + item[ 'image'] + '" class="w-px-20 h-auto rounded-circle" alt="' + item['fname'] + '" />' + item['fname'] + ' ' + item['mname'] + ' ' + item['lname'] + ' (' + item['email'] + ')</label>');
+									}
+								});
+							}else{
+								$(".student_search_list").html('<label class="list-group-item row_user text-muted">No Record Found</label>');
+							}
                     }
                 }
             })
@@ -259,6 +309,10 @@ $(document).ready(function() {
             $(".student_search_list").html("");
         }
     });
+	
+	$(".selected_criteria").on("change", function(){
+		$(this).parent().parent().find(".rules-based-input").attr("disabled", !$(this).is(":checked"));
+	})
 });
 
 $(document).on("change", ".student_search_list .listed_student", function() {

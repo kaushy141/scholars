@@ -29,6 +29,8 @@ class UserModel extends MyModel
 	protected $unverified = 'Unverified';
 	protected $suspended = 'Suspended';
 	protected $deleted = 'Deleted';
+	protected $category = array('General','General(EWS)','OBC','OBC(NC)','SC','ST');
+	protected $religious = array('Hinduism','Buddhism','Sikhism','Jainism','Islam','Christianity','Other');
 
 
 	public function get($user_id)
@@ -84,9 +86,10 @@ class UserModel extends MyModel
 			$builder->where("{$this->table}.type", $type);
 		$builder->where("{$this->table}.status", $this->active);
 		$builder->where("{$this->table}.email_verified", 1);
-		$builder->where("CONCAT(fname, ' ', lname) LIKE '%$keyword%' OR CONCAT(fname, ' ', mname, ' ', lname) LIKE '%$keyword%' OR fname LIKE '%$keyword%' OR mname LIKE '%$keyword%' OR lname LIKE '%$keyword%' OR email LIKE '%$keyword%' OR mobile LIKE '%$keyword%'");
+		$builder->where("(CONCAT(fname, ' ', lname) LIKE '%$keyword%' OR CONCAT(fname, ' ', mname, ' ', lname) LIKE '%$keyword%' OR fname LIKE '%$keyword%' OR mname LIKE '%$keyword%' OR lname LIKE '%$keyword%' OR email LIKE '%$keyword%' OR mobile LIKE '%$keyword%')");
 		$builder->limit(10);
 		$query = $builder->get();
+		//echo $this->db->getLastQuery();die;
 		return $query->getResultArray();
 	}
 

@@ -12,7 +12,7 @@ class ScholarshipModel extends MyModel {
     protected $returnType     = 'array';
     protected $useSoftDeletes = true;
 
-	protected $allowedFields = ['scholar_id', 'amount', 'year', 'publish_date', 'reg_start_date', 'reg_end_date', 'announce_date', 'cycle', 'updated_date', 'deleted_date', 'status', 'auto_renew'];
+	protected $allowedFields = ['scholar_id', 'amount', 'year', 'publish_date', 'reg_start_date', 'reg_end_date', 'announce_date', 'cycle', 'no_of_scholars', 'amount_of_scholar', 'total_scholar_amount', 'criteria_type', 'updated_date', 'deleted_date', 'status', 'auto_renew'];
     protected $useTimestamps = false;
     protected $createdField  = 'created_date';
     protected $updatedField  = 'updated_date';
@@ -105,6 +105,45 @@ class ScholarshipModel extends MyModel {
 		$query = $builder->get();
 		//echo $this->db->getLastQuery();
 		return $query->getResultArray();
+	}
+	
+	public function addCriteria($data){
+		$builder = $this->db->table("scholarship_criteria");
+		$builder->insert($data);
+	}
+	
+	public function clearCriteria($scholarship_id){
+		$builder = $this->db->table("criteria");
+		$builder->where('scholarship_id', $scholarship_id);
+		$builder->delete();
+	}
+	
+	public function getSelectionCriteria(){
+		$builder = $this->db->table('criteria');
+		$builder->select("*");
+		$builder->orderBy("name");
+		$query = $builder->get();
+		return $query->getResultArray();
+	}
+	
+	public function getScholarshipSavedCriteria($scholarship_id){
+		$builder = $this->db->table('scholarship_criteria');
+		$builder->select("*");
+		$builder->where("scholarship_id", $scholarship_id);	
+		$query = $builder->get();
+		return $query->getResultArray();
+	}
+	
+	
+	public function getSelectionCriteriaWithOptions(){
+		$criteria = $this->getSelectionCriteria();
+		$criteriaOArray = [];
+		foreach($criteria as $_criteria){
+			$db = db_connect();
+			$_criteria['options'] = $_criteria['option_sorce'] ? $db->query($_criteria['option_sorce'])->getResultArray() : [];		
+			$criteriaOArray[] = $_criteria;
+		}
+		return $criteriaOArray;
 	}
 }
 ?>
